@@ -107,12 +107,32 @@ export const docsNavigation = [
         ],
     },
     {
-        title: 'Components',
+        title: 'Input Components',
         items: [
-            { name: 'Button', href: '/docs/components/button' },
-            { name: 'Card', href: '/docs/components/card' },
-            { name: 'Input', href: '/docs/components/input' },
-            { name: 'Modal', href: '/docs/components/modal' },
+            { name: 'Range Slider', href: '/components/range-slider' },
+            { name: 'Switch Toggle', href: '/components/switch-toggle' },
+            { name: 'Date Picker', href: '/components/date-picker' },
+        ],
+    },
+    {
+        title: 'Navigation Components',
+        items: [
+            { name: 'Animated Tab Bar', href: '/components/animated-tab-bar' },
+            { name: 'Animated Bottom Navigation', href: '/components/animated-bottom-navigation' },
+        ],
+    },
+    {
+        title: 'Button Components',
+        items: [
+            { name: 'Rainbow Button', href: '/components/rainbow-button' },
+            { name: 'Floating Action Button', href: '/components/floating-action-button' },
+        ],
+    },
+    {
+        title: 'Other Components',
+        items: [
+            { name: 'Dynamic Bottom Sheet', href: '/components/dynamic-bottom-sheet' },
+            { name: 'Skeleton Loader', href: '/components/skeleton-loader' },
         ],
     },
 ];

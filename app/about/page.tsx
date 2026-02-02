@@ -55,7 +55,7 @@ function HeroSection() {
                         <div className="absolute top-0 left-8 w-1 h-full bg-gradient-to-b from-blue-600 to-purple-600 rounded-full" />
                         <blockquote className="pl-8 space-y-6 text-lg md:text-xl leading-relaxed">
                             <p className="text-foreground">
-                                I was building my app, <span className="font-semibold text-blue-500">Tripookie</span>, and spent
+                                I was building a production app and spent
                                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-bold"> 3 days </span>
                                 perfecting a bottom sheet with drag gestures. Then I moved to the next screen and spent
                                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-bold"> 2 more days </span>
@@ -82,7 +82,7 @@ function HeroSection() {
                             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">ComponentHub</span> is my answer.
                         </p>
                         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            Every component here is extracted from a real production app with thousands of users.
+                            Every component here is extracted from real production apps.
                             These aren't toy examples or weekend projects. They're <span className="text-foreground font-medium">battle-tested solutions to real problems.</span>
                         </p>
                     </motion.div>
@@ -244,7 +244,7 @@ function TheJourney() {
                             <code className="px-2 py-1 rounded bg-muted text-foreground mx-1">reusable-components</code>.
                         </p>
                         <p className="text-muted-foreground">
-                            While building <span className="text-blue-500 font-medium">Tripookie</span>, a travel app for thousands of users,
+                            While building production apps over the years,
                             I found myself copying components between projects. A bottom sheet here. A tab bar there.
                             Each time, I'd tweak them, fix bugs, add features.
                         </p>
@@ -267,7 +267,7 @@ function TheJourney() {
                             The Realization
                         </h3>
                         <p className="text-lg text-muted-foreground mb-4">
-                            The components in Tripookie weren't just code - they were <span className="text-foreground font-medium">lessons learned</span>:
+                            These components weren't just code - they were <span className="text-foreground font-medium">lessons learned</span>:
                         </p>
                         <ul className="space-y-2">
                             {lessons.map((lesson, index) => (
@@ -411,7 +411,7 @@ function WhyDifferent() {
         {
             icon: Target,
             title: 'Production-Tested, Not Tutorial Code',
-            description: 'Every component is extracted from Tripookie, a real app with thousands of active users. These aren\'t "what if" examples - they\'re "what works" solutions.',
+            description: 'Every component is extracted from real production apps. These aren\'t "what if" examples - they\'re "what works" solutions.',
         },
         {
             icon: Zap,
@@ -485,7 +485,7 @@ function WhyDifferent() {
 // ============================================================================
 function AboutCreator() {
     const projects = [
-        { icon: Rocket, label: 'Tripookie', description: 'Travel app powering thousands of trips' },
+        { icon: Rocket, label: 'Mobile Apps', description: 'Building production React Native apps' },
         { icon: Code2, label: 'ComponentHub', description: 'This platform you\'re on' },
         { icon: Github, label: 'Open Source', description: 'Contributing to React Native ecosystem' },
         { icon: Twitter, label: 'Twitter', description: 'Sharing daily learnings and builds' },
@@ -529,8 +529,8 @@ function AboutCreator() {
                         </div>
                         <p className="text-muted-foreground leading-relaxed">
                             Hey! I'm Mukesh, a React Native developer who's been building mobile apps for 2+ years.
-                            My current focus is Tripookie - a travel app that's teaching me everything about building
-                            delightful mobile experiences. I believe the best way to learn is to share. ComponentHub is
+                            I'm passionate about creating delightful mobile experiences with smooth animations and intuitive UIs.
+                            I believe the best way to learn is to share. ComponentHub is
                             my experiment in documenting what I learn and building a community of makers.
                         </p>
                     </div>
@@ -665,16 +665,16 @@ function Roadmap() {
                         <div
                             key={phase.title}
                             className={`p-6 rounded-2xl border ${phase.status === 'current'
-                                    ? 'bg-blue-500/5 border-blue-500/30'
-                                    : 'bg-muted/30 border-border'
+                                ? 'bg-blue-500/5 border-blue-500/30'
+                                : 'bg-muted/30 border-border'
                                 }`}
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-semibold">{phase.title}</h3>
                                 <span
                                     className={`text-xs px-2 py-1 rounded-full ${phase.status === 'current'
-                                            ? 'bg-blue-500/20 text-blue-500'
-                                            : 'bg-muted text-muted-foreground'
+                                        ? 'bg-blue-500/20 text-blue-500'
+                                        : 'bg-muted text-muted-foreground'
                                         }`}
                                 >
                                     {phase.label}
@@ -817,7 +817,6 @@ export default function AboutPage() {
             <WhyFree />
             <WhyDifferent />
             <AboutCreator />
-            <Roadmap />
             <FinalCTA />
         </div>
     );

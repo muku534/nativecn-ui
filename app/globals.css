@@ -50,26 +50,43 @@
   --color-accent-foreground: hsl(var(--accent-foreground));
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
-  
+
   /* Custom animations */
   --animate-float: float 6s ease-in-out infinite;
   --animate-fade-in: fadeIn 0.5s ease-in;
   --animate-slide-in: slideIn 0.3s ease-out;
   --animate-pulse-slow: pulse 3s ease-in-out infinite;
-  
+
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
   }
-  
+
   @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
-  
+
   @keyframes slideIn {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(0); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
   }
 }
 
@@ -104,4 +121,11 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary) / 0.4);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

@@ -48,7 +48,12 @@ export default function HowItWorks() {
                 </motion.div>
 
                 {/* Steps */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0">
+                    {/* Connector line - equal spacing on both sides */}
+                    <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5">
+                        <div className="w-full h-full bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 opacity-50 rounded-full" />
+                    </div>
+
                     {steps.map((step, index) => {
                         const Icon = step.icon;
                         return (
@@ -58,13 +63,8 @@ export default function HowItWorks() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.2 }}
                                 viewport={{ once: true }}
-                                className="relative"
+                                className="relative z-10"
                             >
-                                {/* Connector line */}
-                                {index < steps.length - 1 && (
-                                    <div className="hidden md:block absolute top-16 left-[calc(50%+40px)] w-[calc(100%-80px)] h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 opacity-30" />
-                                )}
-
                                 <div className="text-center">
                                     {/* Step number with icon */}
                                     <div className="relative inline-flex mb-6">
