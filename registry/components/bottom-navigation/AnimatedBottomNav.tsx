@@ -55,7 +55,7 @@ const AnimatedBottomNav = ({
             useNativeDriver: true,
         }).start();
 
-        state.routes.forEach((_, index: any) => {
+        state.routes.forEach((_: any, index: any) => {
             const isFocused = state.index === index;
 
             Animated.parallel([

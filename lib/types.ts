@@ -42,6 +42,7 @@ export interface ComponentMetadata {
     difficulty: 'Easy' | 'Medium' | 'Advanced';
     codePreview: string;
     installation: ComponentInstallation;
+    files?: string[];
 }
 
 // Registry index entry (lightweight for listing)

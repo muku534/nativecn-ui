@@ -42,6 +42,7 @@ declare module 'react-native' {
     export const Share: any;
     export const Vibration: any;
     export const I18nManager: any;
+    export const NativeModules: any;
 
     export type ViewStyle = any;
     export type TextStyle = any;

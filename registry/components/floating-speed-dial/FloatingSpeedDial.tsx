@@ -82,7 +82,7 @@ const FloatingSpeedDial = ({
         outputRange: ['0deg', '45deg']
     });
 
-    const getActionStyle = (anim: Animated.Value, translateY: number) => ({
+    const getActionStyle = (anim: any, translateY: number) => ({
         opacity: anim,
         transform: [
             { scale: anim },

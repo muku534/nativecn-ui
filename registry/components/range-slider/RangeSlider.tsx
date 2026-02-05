@@ -65,7 +65,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
                 // @ts-ignore - access private value for synchronous read
                 startX.current = pan._value;
             },
-            onPanResponderMove: (_, gesture) => {
+            onPanResponderMove: (_: any, gesture: any) => {
                 let newX = startX.current + gesture.dx;
                 newX = Math.max(0, Math.min(newX, SLIDER_WIDTH - THUMB_SIZE));
                 pan.setValue(newX);
@@ -76,7 +76,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
                     onValueChange(newValue);
                 }
             },
-            onPanResponderRelease: (_, gesture) => {
+            onPanResponderRelease: (_: any, gesture: any) => {
                 let newX = startX.current + gesture.dx;
                 newX = Math.max(0, Math.min(newX, SLIDER_WIDTH - THUMB_SIZE));
                 const percent = newX / (SLIDER_WIDTH - THUMB_SIZE);

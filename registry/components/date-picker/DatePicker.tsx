@@ -58,9 +58,9 @@ const DatePicker = ({
     const COLORS = DEFAULT_COLORS;
     const [selectedDate, setSelectedDate] = useState(initialDate || new Date());
 
-    const monthScrollRef = useRef<ScrollView>(null);
-    const dayScrollRef = useRef<ScrollView>(null);
-    const yearScrollRef = useRef<ScrollView>(null);
+    const monthScrollRef = useRef<any>(null);
+    const dayScrollRef = useRef<any>(null);
+    const yearScrollRef = useRef<any>(null);
 
     const isProgrammaticScroll = useRef(false);
 
