@@ -78,7 +78,7 @@ export const features = [
 ];
 
 export const stats = [
-    { value: '9+', label: 'Components' },
+    { value: '10+', label: 'Components' },
     { value: '0', label: 'Dependencies' },
     { value: '100%', label: 'TypeScript' },
     { value: '∞', label: 'Possibilities' },
@@ -109,6 +109,7 @@ export const docsNavigation = [
     {
         title: 'Input Components',
         items: [
+            { name: 'Custom Input', href: '/components/custom-input' },
             { name: 'Range Slider', href: '/components/range-slider' },
             { name: 'Switch Toggle', href: '/components/switch-toggle' },
             { name: 'Date Picker', href: '/components/date-picker' },

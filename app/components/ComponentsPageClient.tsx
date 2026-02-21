@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Copy, Check, ExternalLink, ArrowRight, Sparkles, Compass, Sliders, MousePointer2, Layers, Loader2, LayoutGrid } from 'lucide-react';
 import type { ComponentMetadata } from '@/lib/types';
-import { logEvent } from '@/lib/firebase';
+import { trackCopyCode, trackCategoryFilter, trackSearch, trackCardClick } from '@/lib/analytics';
 
 // Category data with icons
 const categories = [
@@ -47,15 +47,38 @@ export default function ComponentsPageClient({ initialComponents }: ComponentsPa
         return matchesCategory && matchesSearch;
     });
 
+    // Debounced search tracking
+    const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const handleSearchChange = useCallback((value: string) => {
+        setSearchQuery(value);
+        if (searchTimerRef.current) clearTimeout(searchTimerRef.current);
+        if (value.trim().length >= 2) {
+            searchTimerRef.current = setTimeout(() => {
+                const results = initialComponents.filter(c =>
+                    c.name.toLowerCase().includes(value.toLowerCase()) ||
+                    c.description.toLowerCase().includes(value.toLowerCase())
+                );
+                trackSearch(value, results.length);
+            }, 800);
+        }
+    }, [initialComponents]);
+
+    const handleCategoryChange = (category: string) => {
+        setSelectedCategory(category);
+        if (category !== 'All') {
+            trackCategoryFilter(category);
+        }
+    };
+
     const handleCopyPreview = async (component: ComponentMetadata) => {
         await navigator.clipboard.writeText(component.codePreview);
         setCopiedId(component.id);
-        logEvent('copy_component_preview', {
-            component_id: component.id,
-            component_name: component.name,
-            location: 'components_grid'
-        });
+        trackCopyCode(component.id, component.name, 'preview_grid');
         setTimeout(() => setCopiedId(null), 2000);
+    };
+
+    const handleCardClick = (component: ComponentMetadata, index: number) => {
+        trackCardClick(component.id, component.name, index);
     };
 
     return (
@@ -94,7 +117,7 @@ export default function ComponentsPageClient({ initialComponents }: ComponentsPa
                             type="text"
                             placeholder="Search components..."
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onChange={(e) => handleSearchChange(e.target.value)}
                             className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
                         />
                     </div>
@@ -125,7 +148,7 @@ export default function ComponentsPageClient({ initialComponents }: ComponentsPa
                                     <button
                                         key={cat.name}
                                         ref={el => { buttonRefs.current[index] = el; }}
-                                        onClick={() => setSelectedCategory(cat.name)}
+                                        onClick={() => handleCategoryChange(cat.name)}
                                         className={`relative z-10 flex items-center gap-2 px-4 py-2.5 rounded-full font-medium transition-colors duration-200 ${isActive
                                             ? 'text-white'
                                             : 'text-muted-foreground hover:text-foreground'
@@ -178,7 +201,7 @@ export default function ComponentsPageClient({ initialComponents }: ComponentsPa
                                         </div>
 
                                         {/* Title - Fixed */}
-                                        <Link href={`/components/${component.id}`}>
+                                        <Link href={`/components/${component.id}`} onClick={() => handleCardClick(component, index)}>
                                             <h3 className="text-xl font-bold mb-2 group-hover:text-gradient transition-all duration-300 cursor-pointer">
                                                 {component.name}
                                             </h3>

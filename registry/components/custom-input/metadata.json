@@ -1,0 +1,220 @@
+{
+    "id": "custom-input",
+    "name": "Custom Input",
+    "category": "Input",
+    "description": "Multi-variant text input with validation, icons, and password toggle",
+    "longDescription": "A highly flexible text input component with 5 visual variants (default, outlined, filled, underlined, search), 3 size presets, built-in password toggle, multiline support with auto-expanding on Android, clearable mode, error/success validation states, and full customization via style overrides and custom color themes. Zero external dependencies — uses only core React Native APIs.",
+    "gradient": "from-violet-500 to-purple-500",
+    "emoji": "✏️",
+    "snackId": "@mr.mukesh/custom-input",
+    "dependencies": {
+        "required": [],
+        "optional": []
+    },
+    "features": [
+        "5 visual variants: default, outlined, filled, underlined, search",
+        "3 size presets: small, medium, large",
+        "Password field with visibility toggle",
+        "Multiline with auto-expand on Android",
+        "Clearable input with × button",
+        "Error, success, and helper text states",
+        "Left and right icon slots",
+        "Built-in search icon for search variant",
+        "Label with required asterisk indicator",
+        "forwardRef support for programmatic focus",
+        "Fully customizable colors via theme override",
+        "Zero external dependencies",
+        "TypeScript support with full type definitions"
+    ],
+    "props": [
+        {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Label text displayed above the input"
+        },
+        {
+            "name": "placeholder",
+            "type": "string",
+            "required": false,
+            "description": "Placeholder text shown when empty"
+        },
+        {
+            "name": "value",
+            "type": "string",
+            "required": false,
+            "description": "Current value of the input"
+        },
+        {
+            "name": "onChangeText",
+            "type": "(text: string) => void",
+            "required": false,
+            "description": "Callback fired when text changes"
+        },
+        {
+            "name": "variant",
+            "type": "'default' | 'outlined' | 'filled' | 'underlined' | 'search'",
+            "required": false,
+            "default": "default",
+            "description": "Visual variant of the input"
+        },
+        {
+            "name": "size",
+            "type": "'small' | 'medium' | 'large'",
+            "required": false,
+            "default": "medium",
+            "description": "Size preset affecting height, font size, and padding"
+        },
+        {
+            "name": "secureTextEntry",
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Hide text for password fields"
+        },
+        {
+            "name": "autoPassword",
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show password visibility toggle icon (use with secureTextEntry)"
+        },
+        {
+            "name": "multiline",
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Enable multiline text input"
+        },
+        {
+            "name": "numberOfLines",
+            "type": "number",
+            "required": false,
+            "default": "1",
+            "description": "Initial number of visible lines (multiline)"
+        },
+        {
+            "name": "maxNumberOfLines",
+            "type": "number",
+            "required": false,
+            "default": "4",
+            "description": "Maximum lines before scrolling (Android)"
+        },
+        {
+            "name": "leftIcon",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Custom icon element on the left side"
+        },
+        {
+            "name": "rightIcon",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Custom icon element on the right side"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "required": false,
+            "description": "Error message (shows red border and text)"
+        },
+        {
+            "name": "success",
+            "type": "string",
+            "required": false,
+            "description": "Success message (shows green border and text)"
+        },
+        {
+            "name": "helperText",
+            "type": "string",
+            "required": false,
+            "description": "Helper text displayed below the input"
+        },
+        {
+            "name": "required",
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show required asterisk on label"
+        },
+        {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Disable the input"
+        },
+        {
+            "name": "clearable",
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show clear × button when input has value"
+        },
+        {
+            "name": "onClear",
+            "type": "() => void",
+            "required": false,
+            "description": "Callback when clear button is pressed"
+        },
+        {
+            "name": "colors",
+            "type": "object",
+            "required": false,
+            "description": "Custom color theme override (primary, background, border, text, placeholder, error, success, disabled)"
+        }
+    ],
+    "usage": [
+        {
+            "title": "Default Input",
+            "description": "Basic text input with label",
+            "code": "const [name, setName] = useState('');\n\n<CustomInput\n  label=\"Full Name\"\n  placeholder=\"Enter your name\"\n  value={name}\n  onChangeText={setName}\n/>"
+        },
+        {
+            "title": "Outlined Variant",
+            "description": "Input with outlined border style",
+            "code": "<CustomInput\n  variant=\"outlined\"\n  label=\"Email\"\n  placeholder=\"you@example.com\"\n  keyboardType=\"email-address\"\n  value={email}\n  onChangeText={setEmail}\n/>"
+        },
+        {
+            "title": "Password Input",
+            "description": "Secure input with visibility toggle",
+            "code": "<CustomInput\n  label=\"Password\"\n  placeholder=\"Enter password\"\n  secureTextEntry\n  autoPassword\n  value={password}\n  onChangeText={setPassword}\n/>"
+        },
+        {
+            "title": "Search Input",
+            "description": "Rounded search bar variant",
+            "code": "<CustomInput\n  variant=\"search\"\n  placeholder=\"Search...\"\n  value={query}\n  onChangeText={setQuery}\n  clearable\n  onClear={() => setQuery('')}\n/>"
+        },
+        {
+            "title": "Underlined Variant",
+            "description": "Minimal underlined style input",
+            "code": "<CustomInput\n  variant=\"underlined\"\n  label=\"Username\"\n  placeholder=\"@username\"\n  value={username}\n  onChangeText={setUsername}\n/>"
+        },
+        {
+            "title": "With Validation",
+            "description": "Input showing error and success states",
+            "code": "<CustomInput\n  label=\"Email\"\n  placeholder=\"you@example.com\"\n  value={email}\n  onChangeText={setEmail}\n  error={!isValid ? 'Please enter a valid email' : ''}\n  success={isValid ? 'Looks good!' : ''}\n  required\n/>"
+        },
+        {
+            "title": "Multiline Input",
+            "description": "Auto-expanding text area",
+            "code": "<CustomInput\n  label=\"Bio\"\n  placeholder=\"Tell us about yourself...\"\n  multiline\n  numberOfLines={3}\n  size=\"large\"\n  value={bio}\n  onChangeText={setBio}\n/>"
+        },
+        {
+            "title": "Filled Variant with Icons",
+            "description": "Filled background with custom left icon",
+            "code": "import Icon from 'react-native-vector-icons/MaterialIcons';\n\n<CustomInput\n  variant=\"filled\"\n  label=\"Location\"\n  placeholder=\"Enter city\"\n  leftIcon={<Icon name=\"location-on\" size={20} color=\"#666\" />}\n  value={city}\n  onChangeText={setCity}\n/>"
+        }
+    ],
+    "version": "1.0.0",
+    "lastUpdated": "2026-02-21",
+    "difficulty": "Easy",
+    "codePreview": "<CustomInput\n  label=\"Email\"\n  variant=\"outlined\"\n  placeholder=\"you@example.com\"\n  value={email}\n  onChangeText={setEmail}\n/>",
+    "installation": {
+        "steps": [
+            "Copy CustomInput.tsx to your components folder",
+            "Import and use in your screen",
+            "No external npm packages required"
+        ]
+    }
+}

@@ -1,14 +1,32 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { stats } from '@/lib/constants';
+import { getDevCount } from '@/lib/analytics';
+
+const staticStats = [
+    { value: '10+', label: 'Components' },
+    { value: '0', label: 'Dependencies' },
+    { value: '100%', label: 'TypeScript' },
+];
 
 export default function Stats() {
+    const [devCount, setDevCount] = useState<number>(175);
+
+    useEffect(() => {
+        getDevCount().then(setDevCount);
+    }, []);
+
+    const allStats = [
+        ...staticStats,
+        { value: `${devCount}+`, label: 'Developers' },
+    ];
+
     return (
         <section className="py-10 px-4 border-y border-border bg-muted/30">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    {stats.map((stat, index) => (
+                    {allStats.map((stat, index) => (
                         <motion.div
                             key={stat.label}
                             initial={{ opacity: 0, y: 20 }}

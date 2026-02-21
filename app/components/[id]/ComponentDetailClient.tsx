@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Copy, Check, ChevronLeft, Code2, Package, Zap, BookOpen, ArrowRight, Play, ExternalLink } from 'lucide-react';
 import type { ComponentData, ComponentMetadata } from '@/lib/types';
-import { logEvent } from '@/lib/firebase';
+import { trackComponentView, trackCopyCode, trackSnackOpen, trackTabSwitch } from '@/lib/analytics';
 
 interface ComponentDetailClientProps {
     component: ComponentData;
@@ -15,16 +15,37 @@ interface ComponentDetailClientProps {
 export default function ComponentDetailClient({ component, relatedComponents }: ComponentDetailClientProps) {
     const [activeTab, setActiveTab] = useState<'typescript' | 'javascript'>('typescript');
     const [copiedSection, setCopiedSection] = useState<string | null>(null);
+    const hasTrackedView = useRef(false);
+
+    // Track component view on mount (once)
+    useEffect(() => {
+        if (!hasTrackedView.current) {
+            hasTrackedView.current = true;
+            trackComponentView(component.id, component.name, component.category);
+        }
+    }, [component.id, component.name, component.category]);
 
     const handleCopy = async (text: string, section: string) => {
         await navigator.clipboard.writeText(text);
         setCopiedSection(section);
-        logEvent('copy_component_detail', {
-            component_id: component.id,
-            component_name: component.name,
-            section: section
-        });
+        trackCopyCode(
+            component.id,
+            component.name,
+            section,
+            section.startsWith('code-') ? activeTab : undefined
+        );
         setTimeout(() => setCopiedSection(null), 2000);
+    };
+
+    const handleTabSwitch = (newTab: 'typescript' | 'javascript') => {
+        if (newTab !== activeTab) {
+            trackTabSwitch(component.id, activeTab, newTab);
+            setActiveTab(newTab);
+        }
+    };
+
+    const handleSnackOpen = () => {
+        trackSnackOpen(component.id, component.name, component.snackId || '');
     };
 
     return (
@@ -82,6 +103,7 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 rounded-lg text-sm font-medium transition-colors"
+                                        onClick={handleSnackOpen}
                                     >
                                         Open in Snack <ExternalLink className="w-4 h-4" />
                                     </a>
@@ -152,8 +174,8 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                             ) : (
                                 <>
                                     <div className="flex gap-2 mb-4">
-                                        <button onClick={() => setActiveTab('typescript')} className={`px-6 py-3 rounded-lg font-medium transition ${activeTab === 'typescript' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}>TypeScript</button>
-                                        <button onClick={() => setActiveTab('javascript')} className={`px-6 py-3 rounded-lg font-medium transition ${activeTab === 'javascript' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}>JavaScript</button>
+                                        <button onClick={() => handleTabSwitch('typescript')} className={`px-6 py-3 rounded-lg font-medium transition ${activeTab === 'typescript' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}>TypeScript</button>
+                                        <button onClick={() => handleTabSwitch('javascript')} className={`px-6 py-3 rounded-lg font-medium transition ${activeTab === 'javascript' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}>JavaScript</button>
                                     </div>
                                     <div className="bg-slate-900 rounded-xl overflow-hidden">
                                         <div className="flex items-center justify-between px-6 py-3 bg-slate-800 border-b border-slate-700">
