@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import {
     BarChart3, Eye, Copy, ExternalLink, Users,
     Lock, LogOut, TrendingUp, Code2, Search as SearchIcon,
-    ShieldCheck
+    ShieldCheck, LayoutTemplate, MousePointerClick, Download,
+    ClipboardCopy, Code, Settings
 } from 'lucide-react';
 import {
     getAllComponentStats,
@@ -26,6 +27,12 @@ interface GlobalCounters {
     total_views: number;
     total_copies: number;
     total_snack_opens: number;
+    total_studio_landing_views?: number;
+    total_studio_builder_views?: number;
+    total_studio_exports?: number;
+    total_studio_copies?: number;
+    total_studio_props_updates?: number;
+    total_studio_code_views?: number;
 }
 
 // ─── Login Screen ────────────────────────────────────────────────────────────
@@ -221,6 +228,12 @@ function Dashboard() {
         total_views: 0,
         total_copies: 0,
         total_snack_opens: 0,
+        total_studio_landing_views: 0,
+        total_studio_builder_views: 0,
+        total_studio_exports: 0,
+        total_studio_copies: 0,
+        total_studio_props_updates: 0,
+        total_studio_code_views: 0,
     });
     const [componentStats, setComponentStats] = useState<Record<string, ComponentStats>>({});
     const [isLoading, setIsLoading] = useState(true);
@@ -312,6 +325,56 @@ function Dashboard() {
                         value={globalCounters.total_snack_opens.toLocaleString()}
                         gradient="from-orange-500 to-yellow-500"
                         delay={0.3}
+                    />
+                </div>
+
+                {/* Form Studio Analytics Section */}
+                <div className="mb-4 flex items-center gap-2 px-1">
+                    <LayoutTemplate className="w-5 h-5 text-blue-500" />
+                    <h2 className="text-xl font-bold">Form Studio Performance</h2>
+                </div>
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+                    <StatCard
+                        icon={Eye}
+                        label="Landing Views"
+                        value={(globalCounters.total_studio_landing_views || 0).toLocaleString()}
+                        gradient="from-indigo-500 to-blue-500"
+                        delay={0.2}
+                    />
+                    <StatCard
+                        icon={MousePointerClick}
+                        label="Builder Sessions"
+                        value={(globalCounters.total_studio_builder_views || 0).toLocaleString()}
+                        gradient="from-blue-500 to-cyan-500"
+                        delay={0.25}
+                    />
+                    <StatCard
+                        icon={Settings}
+                        label="Prop Updates"
+                        value={(globalCounters.total_studio_props_updates || 0).toLocaleString()}
+                        gradient="from-cyan-500 to-teal-500"
+                        delay={0.3}
+                    />
+                    <StatCard
+                        icon={Code}
+                        label="Code Views"
+                        value={(globalCounters.total_studio_code_views || 0).toLocaleString()}
+                        gradient="from-amber-400 to-orange-500"
+                        delay={0.35}
+                    />
+                    <StatCard
+                        icon={ClipboardCopy}
+                        label="Code Copies"
+                        value={(globalCounters.total_studio_copies || 0).toLocaleString()}
+                        gradient="from-orange-500 to-red-500"
+                        delay={0.4}
+                    />
+                    <StatCard
+                        icon={Download}
+                        label="Studio Exports"
+                        value={(globalCounters.total_studio_exports || 0).toLocaleString()}
+                        gradient="from-red-500 to-pink-500"
+                        delay={0.45}
                     />
                 </div>
 

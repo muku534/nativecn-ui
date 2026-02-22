@@ -14,6 +14,15 @@ export const EVENTS = {
     TAB_SWITCH: 'tab_switch',
     CATEGORY_FILTER: 'category_filter',
     SEARCH_COMPONENT: 'search_component',
+
+    // Form Studio Events
+    STUDIO_LANDING_VIEW: 'studio_landing_view',
+    STUDIO_BUILDER_VIEW: 'studio_builder_view',
+    STUDIO_COMPONENT_ADDED: 'studio_component_added',
+    STUDIO_PROPS_UPDATED: 'studio_props_updated',
+    STUDIO_CODE_VIEW: 'studio_code_view',
+    STUDIO_CODE_EXPORT: 'studio_code_export',
+    STUDIO_CODE_COPY: 'studio_code_copy',
 } as const;
 
 // ─── Server API Helpers (No direct Firestore access) ─────────────────────────
@@ -108,6 +117,43 @@ export function trackSearch(query: string, resultsCount: number) {
     });
 }
 
+// ─── Form Studio Event Tracking ──────────────────────────────────────────────
+
+export function trackStudioLandingView() {
+    logEvent(EVENTS.STUDIO_LANDING_VIEW, {});
+    serverTrack('increment_global', { field: 'total_studio_landing_views' });
+}
+
+export function trackStudioBuilderView() {
+    logEvent(EVENTS.STUDIO_BUILDER_VIEW, {});
+    serverTrack('increment_global', { field: 'total_studio_builder_views' });
+}
+
+export function trackStudioComponentAdded(componentType: string) {
+    logEvent(EVENTS.STUDIO_COMPONENT_ADDED, { component_type: componentType });
+    serverTrack('track_component', { componentId: `studio_${componentType.toLowerCase()}`, field: 'studio_uses' });
+}
+
+export function trackStudioPropsUpdated(componentType: string) {
+    logEvent(EVENTS.STUDIO_PROPS_UPDATED, { component_type: componentType });
+    serverTrack('increment_global', { field: 'total_studio_props_updates' });
+}
+
+export function trackStudioCodeView() {
+    logEvent(EVENTS.STUDIO_CODE_VIEW, {});
+    serverTrack('increment_global', { field: 'total_studio_code_views' });
+}
+
+export function trackStudioCodeExport() {
+    logEvent(EVENTS.STUDIO_CODE_EXPORT, {});
+    serverTrack('increment_global', { field: 'total_studio_exports' });
+}
+
+export function trackStudioCodeCopy() {
+    logEvent(EVENTS.STUDIO_CODE_COPY, {});
+    serverTrack('increment_global', { field: 'total_studio_copies' });
+}
+
 // ─── Admin Auth (httpOnly cookie — no tokens in client) ──────────────────────
 
 /** Login with username + password — session stored in httpOnly cookie */
@@ -172,13 +218,31 @@ export async function getGlobalCounters(): Promise<{
     total_views: number;
     total_copies: number;
     total_snack_opens: number;
+    total_studio_landing_views: number;
+    total_studio_builder_views: number;
+    total_studio_exports: number;
+    total_studio_copies: number;
+    total_studio_props_updates: number;
+    total_studio_code_views: number;
 }> {
+    const defaultData = {
+        dev_count: 175,
+        total_views: 0,
+        total_copies: 0,
+        total_snack_opens: 0,
+        total_studio_landing_views: 0,
+        total_studio_builder_views: 0,
+        total_studio_exports: 0,
+        total_studio_copies: 0,
+        total_studio_props_updates: 0,
+        total_studio_code_views: 0,
+    };
     try {
         const res = await fetch('/api/analytics/track?type=global');
         if (res.ok) return await res.json();
-        return { dev_count: 175, total_views: 0, total_copies: 0, total_snack_opens: 0 };
+        return defaultData;
     } catch {
-        return { dev_count: 175, total_views: 0, total_copies: 0, total_snack_opens: 0 };
+        return defaultData;
     }
 }
 

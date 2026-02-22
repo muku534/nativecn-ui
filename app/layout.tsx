@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
+import { StudioProvider } from "@/lib/studio/context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,10 +40,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AnalyticsProvider />
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <StudioProvider>
+            <AnalyticsProvider />
+            <Navbar />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+          </StudioProvider>
         </ThemeProvider>
       </body>
     </html>

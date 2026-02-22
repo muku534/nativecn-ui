@@ -37,15 +37,23 @@ const fontFamily = {
 const ITEM_HEIGHT = 50;
 
 const DatePicker = ({
-    visible,
-    onClose,
-    onDateSelect,
-    initialDate,
+    label,
+    value,
+    onDateChange,
+    placeholder = 'MM/DD/YYYY',
     minimumDate,
     maximumDate,
+    disabled = false,
 }) => {
     const COLORS = DEFAULT_COLORS;
-    const [selectedDate, setSelectedDate] = useState(initialDate || new Date());
+    const [visible, setVisible] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(value || new Date());
+
+    useEffect(() => {
+        if (value) {
+            setSelectedDate(value);
+        }
+    }, [value]);
 
     const monthScrollRef = useRef(null);
     const dayScrollRef = useRef(null);
@@ -108,8 +116,8 @@ const DatePicker = ({
 
     const handleConfirm = () => {
         if (!isDateDisabled(currentMonth, currentDay, currentYear)) {
-            onDateSelect(selectedDate);
-            onClose();
+            if (onDateChange) onDateChange(selectedDate);
+            setVisible(false);
         }
     };
 
@@ -164,136 +172,178 @@ const DatePicker = ({
     };
 
     return (
-        <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-            <View style={styles.modalOverlay}>
-                <View style={[styles.modalContainer, { backgroundColor: COLORS.WhiteSmoke }]}>
+        <View style={styles.wrapper}>
+            {label && <Text style={styles.inputLabel}>{label}</Text>}
+            <TouchableOpacity
+                style={[styles.inputContainer, disabled && styles.disabledContainer]}
+                onPress={() => !disabled && setVisible(true)}
+                activeOpacity={0.7}
+            >
+                <Text style={[styles.inputText, !value && { color: COLORS.Midgray }]}>
+                    {value ? value.toLocaleDateString() : placeholder}
+                </Text>
+                <Text style={{ fontSize: 16 }}>📅</Text>
+            </TouchableOpacity>
 
-                    {/* Header */}
-                    <View style={styles.header}>
-                        <Text style={[styles.headerTitle, { color: COLORS.darkgray }]}>Select Date</Text>
-                        <TouchableOpacity onPress={onClose}>
-                            <Ionicons name="close" size={wp(6)} color={COLORS.darkgray} />
-                        </TouchableOpacity>
-                    </View>
+            <Modal visible={visible} transparent animationType="fade" onRequestClose={() => setVisible(false)}>
+                <View style={styles.modalOverlay}>
+                    <View style={[styles.modalContainer, { backgroundColor: COLORS.WhiteSmoke }]}>
 
-                    {/* Picker */}
-                    <View style={styles.pickerContainer}>
-                        <View style={[styles.selectionHighlight, { backgroundColor: COLORS.white }]} />
-
-                        {/* Month */}
-                        <View style={styles.pickerColumn}>
-                            <ScrollView
-                                ref={monthScrollRef}
-                                showsVerticalScrollIndicator={false}
-                                snapToInterval={ITEM_HEIGHT}
-                                decelerationRate="fast"
-                                onMomentumScrollEnd={handleMonthScroll}
-                            >
-                                <View style={{ height: ITEM_HEIGHT * 2 }} />
-                                {months.map((m, i) => {
-                                    const disabled = isDateDisabled(i, currentDay, currentYear);
-                                    return (
-                                        <View key={m} style={styles.pickerItem}>
-                                            <Text style={[
-                                                styles.pickerText,
-                                                { color: COLORS.darkgray },
-                                                i === currentMonth && styles.selectedText && { color: COLORS.black },
-                                                disabled && styles.disabledText
-                                            ]}>
-                                                {m}
-                                            </Text>
-                                        </View>
-                                    );
-                                })}
-                                <View style={{ height: ITEM_HEIGHT * 2 }} />
-                            </ScrollView>
+                        {/* Header */}
+                        <View style={styles.header}>
+                            <Text style={[styles.headerTitle, { color: COLORS.darkgray }]}>Select Date</Text>
+                            <TouchableOpacity onPress={() => setVisible(false)}>
+                                <Ionicons name="close" size={wp(6)} color={COLORS.darkgray} />
+                            </TouchableOpacity>
                         </View>
 
-                        {/* Day */}
-                        <View style={styles.pickerColumn}>
-                            <ScrollView
-                                ref={dayScrollRef}
-                                showsVerticalScrollIndicator={false}
-                                snapToInterval={ITEM_HEIGHT}
-                                decelerationRate="fast"
-                                onMomentumScrollEnd={handleDayScroll}
-                            >
-                                <View style={{ height: ITEM_HEIGHT * 2 }} />
-                                {days.map(d => {
-                                    const disabled = isDateDisabled(currentMonth, d, currentYear);
-                                    return (
-                                        <View key={d} style={styles.pickerItem}>
-                                            <Text style={[
-                                                styles.pickerText,
-                                                { color: COLORS.darkgray },
-                                                d === currentDay && styles.selectedText && { color: COLORS.black },
-                                                disabled && styles.disabledText
-                                            ]}>
-                                                {d}
-                                            </Text>
-                                        </View>
-                                    );
-                                })}
-                                <View style={{ height: ITEM_HEIGHT * 2 }} />
-                            </ScrollView>
+                        {/* Picker */}
+                        <View style={styles.pickerContainer}>
+                            <View style={[styles.selectionHighlight, { backgroundColor: COLORS.white }]} />
+
+                            {/* Month */}
+                            <View style={styles.pickerColumn}>
+                                <ScrollView
+                                    ref={monthScrollRef}
+                                    showsVerticalScrollIndicator={false}
+                                    snapToInterval={ITEM_HEIGHT}
+                                    decelerationRate="fast"
+                                    onMomentumScrollEnd={handleMonthScroll}
+                                >
+                                    <View style={{ height: ITEM_HEIGHT * 2 }} />
+                                    {months.map((m, i) => {
+                                        const disabled = isDateDisabled(i, currentDay, currentYear);
+                                        return (
+                                            <View key={m} style={styles.pickerItem}>
+                                                <Text style={[
+                                                    styles.pickerText,
+                                                    { color: COLORS.darkgray },
+                                                    i === currentMonth && styles.selectedText && { color: COLORS.black },
+                                                    disabled && styles.disabledText
+                                                ]}>
+                                                    {m}
+                                                </Text>
+                                            </View>
+                                        );
+                                    })}
+                                    <View style={{ height: ITEM_HEIGHT * 2 }} />
+                                </ScrollView>
+                            </View>
+
+                            {/* Day */}
+                            <View style={styles.pickerColumn}>
+                                <ScrollView
+                                    ref={dayScrollRef}
+                                    showsVerticalScrollIndicator={false}
+                                    snapToInterval={ITEM_HEIGHT}
+                                    decelerationRate="fast"
+                                    onMomentumScrollEnd={handleDayScroll}
+                                >
+                                    <View style={{ height: ITEM_HEIGHT * 2 }} />
+                                    {days.map(d => {
+                                        const disabled = isDateDisabled(currentMonth, d, currentYear);
+                                        return (
+                                            <View key={d} style={styles.pickerItem}>
+                                                <Text style={[
+                                                    styles.pickerText,
+                                                    { color: COLORS.darkgray },
+                                                    d === currentDay && styles.selectedText && { color: COLORS.black },
+                                                    disabled && styles.disabledText
+                                                ]}>
+                                                    {d}
+                                                </Text>
+                                            </View>
+                                        );
+                                    })}
+                                    <View style={{ height: ITEM_HEIGHT * 2 }} />
+                                </ScrollView>
+                            </View>
+
+                            {/* Year */}
+                            <View style={styles.pickerColumn}>
+                                <ScrollView
+                                    ref={yearScrollRef}
+                                    showsVerticalScrollIndicator={false}
+                                    snapToInterval={ITEM_HEIGHT}
+                                    decelerationRate="fast"
+                                    onMomentumScrollEnd={handleYearScroll}
+                                >
+                                    <View style={{ height: ITEM_HEIGHT * 2 }} />
+                                    {years.map(y => {
+                                        const disabled = isDateDisabled(currentMonth, currentDay, y);
+                                        return (
+                                            <View key={y} style={styles.pickerItem}>
+                                                <Text style={[
+                                                    styles.pickerText,
+                                                    { color: COLORS.darkgray },
+                                                    y === currentYear && styles.selectedText && { color: COLORS.black },
+                                                    disabled && styles.disabledText
+                                                ]}>
+                                                    {y}
+                                                </Text>
+                                            </View>
+                                        );
+                                    })}
+                                    <View style={{ height: ITEM_HEIGHT * 2 }} />
+                                </ScrollView>
+                            </View>
+
                         </View>
 
-                        {/* Year */}
-                        <View style={styles.pickerColumn}>
-                            <ScrollView
-                                ref={yearScrollRef}
-                                showsVerticalScrollIndicator={false}
-                                snapToInterval={ITEM_HEIGHT}
-                                decelerationRate="fast"
-                                onMomentumScrollEnd={handleYearScroll}
+                        {/* Buttons */}
+                        <View style={styles.actionButtons}>
+                            <TouchableOpacity style={[styles.button, { backgroundColor: COLORS.LightGray }]} onPress={() => setVisible(false)}>
+                                <Text style={[styles.buttonText, { color: COLORS.darkgray }]}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[
+                                    styles.button,
+                                    { backgroundColor: COLORS.BrightPink },
+                                    isDateDisabled(currentMonth, currentDay, currentYear) && { opacity: 0.5 }
+                                ]}
+                                onPress={handleConfirm}
+                                disabled={isDateDisabled(currentMonth, currentDay, currentYear)}
                             >
-                                <View style={{ height: ITEM_HEIGHT * 2 }} />
-                                {years.map(y => {
-                                    const disabled = isDateDisabled(currentMonth, currentDay, y);
-                                    return (
-                                        <View key={y} style={styles.pickerItem}>
-                                            <Text style={[
-                                                styles.pickerText,
-                                                { color: COLORS.darkgray },
-                                                y === currentYear && styles.selectedText && { color: COLORS.black },
-                                                disabled && styles.disabledText
-                                            ]}>
-                                                {y}
-                                            </Text>
-                                        </View>
-                                    );
-                                })}
-                                <View style={{ height: ITEM_HEIGHT * 2 }} />
-                            </ScrollView>
+                                <Text style={[styles.buttonText, { color: COLORS.white }]}>Confirm</Text>
+                            </TouchableOpacity>
                         </View>
 
                     </View>
-
-                    {/* Buttons */}
-                    <View style={styles.actionButtons}>
-                        <TouchableOpacity style={[styles.button, { backgroundColor: COLORS.LightGray }]} onPress={onClose}>
-                            <Text style={[styles.buttonText, { color: COLORS.darkgray }]}>Cancel</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[
-                                styles.button,
-                                { backgroundColor: COLORS.BrightPink },
-                                isDateDisabled(currentMonth, currentDay, currentYear) && { opacity: 0.5 }
-                            ]}
-                            onPress={handleConfirm}
-                            disabled={isDateDisabled(currentMonth, currentDay, currentYear)}
-                        >
-                            <Text style={[styles.buttonText, { color: COLORS.white }]}>Confirm</Text>
-                        </TouchableOpacity>
-                    </View>
-
                 </View>
-            </View>
-        </Modal>
+            </Modal>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
+    wrapper: {
+        marginVertical: 6,
+    },
+    inputLabel: {
+        fontSize: 14,
+        fontWeight: '600',
+        marginBottom: 6,
+        color: '#1a1a2e',
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: 48,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#c0c0c0',
+        backgroundColor: 'transparent',
+    },
+    disabledContainer: {
+        backgroundColor: '#e0e0e0',
+        opacity: 0.6,
+    },
+    inputText: {
+        fontSize: 15,
+        color: '#1a1a2e',
+    },
     modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',

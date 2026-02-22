@@ -20,6 +20,7 @@ export const siteConfig = {
 
 export const navigation = [
     { name: 'Components', href: '/components' },
+    { name: 'Studio', href: '/studio' },
     { name: 'Docs', href: '/docs' },
     { name: 'About', href: '/about' },
     { name: 'Blog', href: '/blog' },

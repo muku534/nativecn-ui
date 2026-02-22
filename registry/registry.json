@@ -76,6 +76,12 @@
             "id": "custom-input",
             "path": "components/custom-input",
             "category": "Input",
+            "difficulty": "Easy"
+        },
+        {
+            "id": "gradient-button",
+            "path": "components/gradient-button",
+            "category": "Button",
             "difficulty": "Easy",
             "version": "1.0.0"
         }

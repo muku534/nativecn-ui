@@ -70,7 +70,12 @@ export async function POST(request: NextRequest) {
         if (action === 'increment_global') {
             const { field } = body;
 
-            if (!['total_views', 'total_copies', 'total_snack_opens'].includes(field)) {
+            if (![
+                'total_views', 'total_copies', 'total_snack_opens',
+                'total_studio_landing_views', 'total_studio_builder_views',
+                'total_studio_exports', 'total_studio_copies',
+                'total_studio_props_updates', 'total_studio_code_views'
+            ].includes(field)) {
                 return NextResponse.json({ error: 'Invalid field' }, { status: 400 });
             }
 
@@ -85,6 +90,12 @@ export async function POST(request: NextRequest) {
                     total_views: 0,
                     total_copies: 0,
                     total_snack_opens: 0,
+                    total_studio_landing_views: 0,
+                    total_studio_builder_views: 0,
+                    total_studio_exports: 0,
+                    total_studio_copies: 0,
+                    total_studio_props_updates: 0,
+                    total_studio_code_views: 0,
                     [field]: 1,
                 });
             }
@@ -165,6 +176,12 @@ export async function GET(request: NextRequest) {
                 total_views: 0,
                 total_copies: 0,
                 total_snack_opens: 0,
+                total_studio_landing_views: 0,
+                total_studio_builder_views: 0,
+                total_studio_exports: 0,
+                total_studio_copies: 0,
+                total_studio_props_updates: 0,
+                total_studio_code_views: 0,
             });
         }
 

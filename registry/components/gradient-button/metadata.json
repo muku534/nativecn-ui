@@ -1,0 +1,82 @@
+{
+    "id": "gradient-button",
+    "name": "Gradient Button",
+    "category": "Button",
+    "description": "A highly customizable premium gradient button",
+    "snackId": "@mr.mukesh/gradient-button",
+    "longDescription": "A highly customizable premium gradient button that supports variants, loading states, full styling overrides, and complex gradients using react-native-linear-gradient.",
+    "gradient": "from-[#FF5F6D] to-[#FFC371]",
+    "emoji": "✨",
+    "dependencies": {
+        "required": [
+            "react-native-linear-gradient"
+        ],
+        "optional": []
+    },
+    "features": [
+        "Multiple variants (primary, secondary, outline, ghost, link)",
+        "Fully customizable gradient colors",
+        "Built-in loading (ActivityIndicator) state",
+        "Size presets (small, medium, large)",
+        "Left and right icon support",
+        "Full width or wrap content configuration"
+    ],
+    "props": [
+        {
+            "name": "title",
+            "type": "string",
+            "required": true,
+            "description": "Text to display inside the button"
+        },
+        {
+            "name": "onPress",
+            "type": "() => void",
+            "required": true,
+            "description": "Function called when button is pressed"
+        },
+        {
+            "name": "variant",
+            "type": "'primary' | 'secondary' | 'outline' | 'ghost' | 'link'",
+            "required": false,
+            "default": "primary",
+            "description": "Button style variant"
+        },
+        {
+            "name": "size",
+            "type": "'small' | 'medium' | 'large'",
+            "required": false,
+            "default": "medium",
+            "description": "Preset sizes"
+        },
+        {
+            "name": "gradientColors",
+            "type": "[string, string]",
+            "required": false,
+            "default": "['#FF5F6D', '#FFC371']",
+            "description": "Array of two colors for the linear gradient"
+        }
+    ],
+    "usage": [
+        {
+            "title": "Basic Usage",
+            "description": "Simple gradient button",
+            "code": "<GradientButton\n  title=\"Continue\"\n  gradientColors={['#FF5F6D', '#FFC371']}\n  onPress={() => console.log('Pressed!')}\n/>"
+        }
+    ],
+    "version": "1.0.0",
+    "lastUpdated": "2026-02-22",
+    "difficulty": "Easy",
+    "codePreview": "<GradientButton title=\"Submit\" gradientColors={['#FF5F6D', '#FFC371']} />",
+    "installation": {
+        "steps": [
+            "npm install react-native-linear-gradient",
+            "cd ios && pod install",
+            "Copy GradientButton.tsx (or .jsx) to your components folder",
+            "Import and use"
+        ],
+        "nativeSetup": [
+            "iOS: Pod install handles setup",
+            "Android: Auto-linked in RN 0.60+"
+        ]
+    }
+}

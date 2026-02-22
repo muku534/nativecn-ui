@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 /* Light mode CSS variables */
 :root {
   --background: 0 0% 100%;
