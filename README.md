@@ -1,69 +1,99 @@
 <div align="center">
-  <img src="public/logo.svg" alt="nativecn-ui Logo" width="100" height="100" />
-  
+  <img src="public/logo-v1.png" alt="nativecn-ui" width="80" />
+
   # nativecn-ui
-  
-  **Premium React Native Components You Own**
-  
-  A collection of beautiful, reusable, and performant React Native components that you can copy and paste into your apps. No npm install bloat. No runtime dependencies. Just pure code.
 
-  [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-  [![React Native](https://img.shields.io/badge/React_Native-v0.76-61DAFB?style=flat-square&logo=react)](https://reactnative.dev/)
-  [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+  **Production-ready React Native components you actually own.**
+  No dependencies. No lock-in. Copy, paste, and ship.
 
-  [Live Demo](https://nativecn-ui.dev) · [Documentation](https://nativecn-ui.dev/docs) · [Report Bug](https://github.com/muku534/nativecn-ui/issues)
-  
+  [![Live Platform](https://img.shields.io/badge/Platform-Live-brightgreen?style=flat-square)](https://nativecn-ui.vercel.app)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=flat-square)](https://www.typescriptlang.org/)
+  [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](./LICENSE)
+  [![React Native](https://img.shields.io/badge/React_Native-0.76+-61DAFB?style=flat-square)](https://reactnative.dev/)
+
+  [🌐 Platform](https://nativecn-ui.vercel.app) •
+  [🎨 Studio Builder](https://nativecn-ui.vercel.app/studio) •
+  [📖 Docs](https://nativecn-ui.vercel.app/docs) •
+  [🧩 Components](https://nativecn-ui.vercel.app/components)
+
 </div>
 
 ---
 
-## 🚀 Why nativecn-ui?
+## Why nativecn-ui?
 
-Modern React Native development often relies on heavy UI libraries that bloat your bundle size and restrict customization. nativecn-ui takes a different approach:
+Most React Native UI libraries give you a package to install
+and depend on forever. nativecn-ui gives you the **raw source
+code** — you copy it, you own it, you customize it completely.
 
-- **Zero Bloat**: Don't install a 5MB library for a single button.
-- **Copy & Paste**: Copy the component code directly into your project.
-- **Full Control**: It's your code now. Customize it exactly how you want.
-- **Native Performance**: Built with `Animated` API and native modules for 60fps performance.
+Inspired by [shadcn/ui](https://ui.shadcn.com) but built
+specifically for React Native.
 
-## ✨ Key Features
-
-- 🎨 **Premium Design** — Polished, production-ready aesthetics out of the box.
-- 📳 **Native Haptics** — Zero-dependency haptic feedback implementation for iOS & Android.
-- 📱 **Mobile First** — Gestures and animations optimized for touch interfaces.
-- 🔧 **TypeScript Support** — Full type definitions for a robust development experience.
-- 🌙 **Dark Mode Ready** — Built-in support for light and dark themes.
-- ♿ **Accessible** — Semantic structure and ARIA labels for inclusivity.
+- ✅ Zero runtime dependencies
+- ✅ Full TypeScript support  
+- ✅ You own the code — no vendor lock-in
+- ✅ Visual Studio Builder to test layouts before coding
+- ✅ Production-ready, 60fps animations
+- ✅ Dark mode ready
 
 ---
 
-## 🛠️ Quick Start
+## 🎨 Studio Builder — Test Before You Code
 
-### 1. Requirements
+Most component libraries show you components in isolation.
+But nobody builds screens that way.
 
-- Node.js 18+
-- React Native 0.70+ (for components)
+The Studio Builder lets you **drag components together,
+preview the real layout, and export the code** before
+writing any boilerplate.
 
-### 2. Installation
+> Drag → Combine → Tweak → Preview → Export
 
-Clone the repository to run the nativecn-ui documentation site locally:
+[→ Try Studio Builder](https://nativecn-ui.vercel.app/studio/builder)
+
+---
+
+## 🧩 Components
+
+| Component | Category | Preview |
+|---|---|---|
+| Animated Tab Bar | Navigation | [View →](https://nativecn-ui.vercel.app/components/animated-tab-bar) |
+| Range Slider | Input | [View →](https://nativecn-ui.vercel.app/components/range-slider) |
+| Dynamic Bottom Sheet | Modal | [View →](https://nativecn-ui.vercel.app/components/bottom-sheet) |
+| Skeleton Loader | Loading | [View →](https://nativecn-ui.vercel.app/components/skeleton-loader) |
+| Animated Bottom Nav | Navigation | [View →](https://nativecn-ui.vercel.app/components/bottom-navigation) |
+| Floating Speed Dial | Button | [View →](https://nativecn-ui.vercel.app/components/floating-speed-dial) |
+| Rainbow Button | Button | [View →](https://nativecn-ui.vercel.app/components/rainbow-button) |
+| Switch Toggle | Input | [View →](https://nativecn-ui.vercel.app/components/switch-toggle) |
+
+[Browse all components →](https://nativecn-ui.vercel.app/components)
+
+---
+
+## 🚀 Quick Start
+
+### Option 1 — CLI (Coming Soon)
 
 ```bash
-git clone https://github.com/muku534/nativecn-ui.git
-cd nativecn-ui
-npm install
-npm run dev
+npx nativecn add animated-tab-bar
 ```
 
-Visit `http://localhost:3000` to browse components.
+### Option 2 — Copy & Paste
 
-### 3. Using Components
+1. Browse components at [nativecn-ui.vercel.app/components](https://nativecn-ui.vercel.app/components)
+2. Click any component
+3. Copy the source code
+4. Paste into your project's `components/` directory
 
-1. Browse the [nativecn-ui Gallery](http://localhost:3000/components).
-2. Select a component (e.g., `RangeSlider`, `AnimatedTabBar`).
-3. Click **"Copy Code"** and paste it into your project's `components/` directory.
-4. (Optional) Copy any required utility files mentioned in the installation guide.
+No configuration. No setup. Just paste and go.
+
+---
+
+## 📋 Requirements
+
+- Node.js 18+
+- React Native 0.70+
+- Expo SDK 50+ (recommended)
 
 ---
 
@@ -72,41 +102,51 @@ Visit `http://localhost:3000` to browse components.
 ```
 nativecn-ui/
 ├── app/                    # Next.js App Router (Doc Site)
-├── components/             # Reusable UI components
-├── registry/               # ✨ The Core: Source of all components
-│   ├── components/         # Individual component source code
-│   │   ├── native-haptics/ # Native modules & drivers
-│   │   └── ...
-│   └── registry.json       # Metadata for the gallery
-├── lib/                    # Utilities & constants
+├── components/             # Platform UI components
+├── registry/               # ✨ Core: Component source files
+│   ├── components/         # Individual component source
+│   └── registry.json       # Component manifest
+├── lib/                    # Utilities & logic
 └── public/                 # Static assets
 ```
 
 ---
 
-## 🤝 Connect with the Author
+## 🗺️ Roadmap
 
-Built with ❤️ by **Mukesh Prajapati**. Follow for updates and more React Native content!
-
-<div align="center">
-
-| Platform | Link |
-|----------|------|
-| **Portfolio** | [portfoliomukesh.vercel.app](https://portfoliomukesh.vercel.app/) |
-| **GitHub** | [@muku534](https://github.com/muku534/nativecn-ui) |
-| **X / Twitter** | [@MukeshPraj81318](https://x.com/MukeshPraj81318) |
-| **LinkedIn** | [Mukesh Prajapati](https://www.linkedin.com/in/mukesh-prajapati-a6a670235) |
-| **YouTube** | [@byteops_0412](https://www.youtube.com/@byteops_0412) |
-| **Reddit** | [u/Fresh-Wealth4531](https://www.reddit.com/user/Fresh-Wealth4531/) |
-
-</div>
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- [x] Component library with copy-paste source
+- [x] Live Studio Builder with drag and drop
+- [x] SEO-indexed individual component pages
+- [x] Dark mode support
+- [ ] `npx nativecn add` CLI
+- [ ] Community showcase page
+- [ ] More components (forms, auth flows, onboarding)
 
 ---
 
-<div align="center">
-  <sub>Designed to make React Native development faster, prettier, and lighter.</sub>
-</div>
+## 🤝 Contributing
+
+Stars help more developers find this project ⭐
+
+Issues, feedback, and PRs are all welcome.
+If you build something with nativecn-ui, share it —
+we'd love to feature it in the community showcase.
+
+---
+
+## 👨💻 Built By
+
+Built with ❤️ by **Mukesh Prajapati**
+
+| Platform | Link |
+|---|---|
+| X / Twitter | [@MukeshPraj81318](https://x.com/MukeshPraj81318) |
+| GitHub | [@muku534](https://github.com/muku534) |
+| LinkedIn | [Mukesh Prajapati](https://www.linkedin.com/in/mukesh-prajapati-a6a670235) |
+| Reddit | [u/Fresh-Wealth4531](https://www.reddit.com/user/Fresh-Wealth4531/) |
+
+---
+
+## 📄 License
+
+MIT © 2026 nativecn-ui
