@@ -2,11 +2,15 @@
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
+import { trackVisitor } from '@/lib/analytics';
 import { logEvent } from '@/lib/firebase';
-
 function Analytics() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
+
+    useEffect(() => {
+        trackVisitor();
+    }, []);
 
     useEffect(() => {
         if (pathname) {

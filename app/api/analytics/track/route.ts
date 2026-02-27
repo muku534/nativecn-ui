@@ -76,15 +76,47 @@ export async function POST(request: NextRequest) {
 
         // ── Increment Global Counter ──
         if (action === 'increment_global') {
-            const { field } = body;
+            const { field, referrer } = body;
 
-            if (![
+            const allowedFields = [
                 'total_views', 'total_copies', 'total_snack_opens',
                 'total_studio_landing_views', 'total_studio_builder_views',
                 'total_studio_exports', 'total_studio_copies',
-                'total_studio_props_updates', 'total_studio_code_views'
-            ].includes(field)) {
+                'total_studio_props_updates', 'total_studio_code_views',
+                'total_visitors'
+            ];
+
+            if (!allowedFields.includes(field)) {
                 return NextResponse.json({ error: 'Invalid field' }, { status: 400 });
+            }
+
+            const fieldTransforms: any[] = [
+                {
+                    fieldPath: field,
+                    increment: { integerValue: "1" }
+                }
+            ];
+
+            // If this is a visitor increment, also categorize the traffic source
+            if (field === 'total_visitors') {
+                let channel = 'visit_direct';
+                if (referrer) {
+                    const ref = referrer.toLowerCase();
+                    if (ref.includes('google.') || ref.includes('bing.') || ref.includes('yahoo.') || ref.includes('duckduckgo.')) {
+                        channel = 'visit_search';
+                    } else if (ref.includes('t.co') || ref.includes('twitter.com') || ref.includes('x.com') || ref.includes('facebook.com') || ref.includes('fb.com') || ref.includes('linkedin.com') || ref.includes('reddit.com') || ref.includes('instagram.com')) {
+                        channel = 'visit_social';
+                    } else if (ref.includes(request.nextUrl.host)) {
+                        channel = 'visit_direct'; // Internal or same-site
+                    } else {
+                        channel = 'visit_referral';
+                    }
+                }
+
+                fieldTransforms.push({
+                    fieldPath: channel,
+                    increment: { integerValue: "1" }
+                });
             }
 
             await firestoreRestFetch(':commit', 'POST', {
@@ -92,12 +124,7 @@ export async function POST(request: NextRequest) {
                     {
                         transform: {
                             document: `projects/${PROJECT_ID}/databases/(default)/documents/counters/global`,
-                            fieldTransforms: [
-                                {
-                                    fieldPath: field,
-                                    increment: { integerValue: "1" }
-                                }
-                            ]
+                            fieldTransforms
                         }
                     }
                 ]
@@ -235,6 +262,7 @@ export async function GET(request: NextRequest) {
                 total_studio_copies: 0,
                 total_studio_props_updates: 0,
                 total_studio_code_views: 0,
+                total_visitors: 0,
             });
         }
 

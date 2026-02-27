@@ -119,6 +119,17 @@ export function trackSearch(query: string, resultsCount: number) {
     });
 }
 
+/** Track visitor */
+export function trackVisitor() {
+    if (typeof window !== 'undefined' && !sessionStorage.getItem('nativecn_visitor_tracked')) {
+        sessionStorage.setItem('nativecn_visitor_tracked', 'true');
+        serverTrack('increment_global', {
+            field: 'total_visitors',
+            referrer: document.referrer || ''
+        });
+    }
+}
+
 // ─── Form Studio Event Tracking ──────────────────────────────────────────────
 
 export function trackStudioLandingView() {
@@ -226,20 +237,28 @@ export async function logoutAdmin(): Promise<void> {
 
 // ─── Dashboard Data (fetched via server API) ─────────────────────────────────
 
-/** Get global counters — requires admin session */
-export async function getGlobalCounters(): Promise<{
+interface GlobalCounters {
     dev_count: number;
     total_views: number;
     total_copies: number;
     total_snack_opens: number;
-    total_studio_landing_views: number;
-    total_studio_builder_views: number;
-    total_studio_exports: number;
-    total_studio_copies: number;
-    total_studio_props_updates: number;
-    total_studio_code_views: number;
-}> {
-    const defaultData = {
+    total_studio_landing_views?: number;
+    total_studio_builder_views?: number;
+    total_studio_exports?: number;
+    total_studio_copies?: number;
+    total_studio_props_updates?: number;
+    total_studio_code_views?: number;
+    total_visitors?: number;
+    visit_direct?: number;
+    visit_social?: number;
+    visit_search?: number;
+    visit_referral?: number;
+    visit_other?: number;
+}
+
+/** Get global counters — requires admin session */
+export async function getGlobalCounters(): Promise<GlobalCounters> {
+    const defaultData: GlobalCounters = {
         dev_count: 175,
         total_views: 0,
         total_copies: 0,
@@ -250,6 +269,11 @@ export async function getGlobalCounters(): Promise<{
         total_studio_copies: 0,
         total_studio_props_updates: 0,
         total_studio_code_views: 0,
+        total_visitors: 0,
+        visit_direct: 0,
+        visit_social: 0,
+        visit_search: 0,
+        visit_referral: 0,
     };
     try {
         const res = await fetch('/api/analytics/track?type=global');

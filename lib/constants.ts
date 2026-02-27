@@ -1,7 +1,7 @@
 export const siteConfig = {
     name: "nativecn-ui",
     description: "Premium React Native components you own. No package bloat. Just beautiful, performant code.",
-    url: "https://nativecn-ui.dev",
+    url: "https://nativecn-ui.vercel.app",
     creator: {
         name: "Mukesh Prajapati",
         role: "React Native Developer",
