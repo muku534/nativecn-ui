@@ -1,0 +1,6 @@
+{
+    "name": "nativecn-ui",
+    "description": "React Native UI component registry — list and fetch component source, props, and usage examples.",
+    "url": "https://nativecn-ui.vercel.app/mcp/http",
+    "transport": "streamable-http"
+}
