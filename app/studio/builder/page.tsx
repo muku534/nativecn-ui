@@ -404,6 +404,75 @@ function ComponentPreview({ node }: { node: CanvasNode }) {
         );
     }
 
+    // ─── Image Skeleton
+    if (node.type === 'image-skeleton') {
+        const w = node.props.width || 300;
+        const h = node.props.height || 300;
+        const br = node.props.borderRadius || 16;
+        const baseColor = node.props.baseColor || '#171717';
+        const accentColor = node.props.accentColor || '#ffffff';
+        const dotColor = node.props.dotColor || '#ffffff';
+        
+        // Generate a static CSS grid pattern background to mimic the points
+        const bgPattern = `
+          radial-gradient(${dotColor}20 1px, transparent 1px)
+        `;
+        
+        return (
+            <div
+                className="flex items-center justify-center w-full"
+                style={{ padding: '16px' }}
+            >
+                <div
+                    className="relative overflow-hidden"
+                    style={{
+                        width: Math.min(w, 320),
+                        height: Math.min(h, 320),
+                        borderRadius: br,
+                        background: baseColor,
+                    }}
+                >
+                    {/* Grid pattern layer */}
+                    <div 
+                        className="absolute inset-0"
+                        style={{
+                            backgroundImage: bgPattern,
+                            backgroundSize: '16px 16px',
+                            backgroundPosition: 'center center',
+                        }}
+                    />
+                    
+                    {/* Highlighted sweeping pattern */}
+                    <div
+                        className="absolute inset-0 animate-pulse"
+                        style={{
+                            backgroundImage: bgPattern,
+                            backgroundSize: '16px 16px',
+                            backgroundPosition: 'center center',
+                            maskImage: 'radial-gradient(ellipse at 70% 30%, black 10%, transparent 60%)',
+                            WebkitMaskImage: 'radial-gradient(ellipse at 70% 30%, black 10%, transparent 60%)',
+                            opacity: 0.8
+                        }}
+                    />
+                    
+                    {/* Soft ambient glow */}
+                    <div
+                        className="absolute inset-0 animate-pulse"
+                        style={{
+                            background: `radial-gradient(circle at 30% 70%, ${accentColor}10 0%, transparent 50%)`,
+                            animationDuration: '3s'
+                        }}
+                    />
+
+                    {/* Label */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-3xl opacity-20">🖼️</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     // ─── Heading
     if (node.type === 'heading') {
         const align = node.props.align || 'left';

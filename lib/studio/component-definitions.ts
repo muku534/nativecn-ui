@@ -377,6 +377,38 @@ const imageCarousel: ComponentDefinition = {
     },
 };
 
+// ─── Image Skeleton ──────────────────────────────────────────────────────────
+
+const imageSkeleton: ComponentDefinition = {
+    type: 'image-skeleton',
+    name: 'Image Skeleton',
+    category: 'Display',
+    icon: '🖼️',
+    importName: 'ImageSkeleton',
+    needsState: false,
+    propControls: [
+        { name: 'width', label: 'Width', type: 'number', defaultValue: 300 },
+        { name: 'height', label: 'Height', type: 'number', defaultValue: 300 },
+        { name: 'borderRadius', label: 'Border Radius', type: 'number', defaultValue: 16 },
+        { name: 'baseColor', label: 'Base Color', type: 'text', defaultValue: '#171717', placeholder: '#171717' },
+        { name: 'dotColor', label: 'Dot Color', type: 'text', defaultValue: '#ffffff', placeholder: '#ffffff' },
+        { name: 'accentColor', label: 'Accent Color', type: 'text', defaultValue: '#ffffff', placeholder: '#ffffff' },
+        { name: 'duration', label: 'Duration (ms)', type: 'number', defaultValue: 4000 },
+    ],
+    generateJSX: (props: Record<string, any>) => {
+        const lines: string[] = [`      <ImageSkeleton`];
+        lines.push(`        width={${props.width || 300}}`);
+        lines.push(`        height={${props.height || 300}}`);
+        if (props.borderRadius && props.borderRadius !== 16) lines.push(`        borderRadius={${props.borderRadius}}`);
+        if (props.baseColor && props.baseColor !== '#171717') lines.push(`        baseColor="${props.baseColor}"`);
+        if (props.dotColor && props.dotColor !== '#ffffff') lines.push(`        dotColor="${props.dotColor}"`);
+        if (props.accentColor && props.accentColor !== '#ffffff') lines.push(`        accentColor="${props.accentColor}"`);
+        if (props.duration && props.duration !== 4000) lines.push(`        duration={${props.duration}}`);
+        lines.push(`      />`);
+        return lines.join('\n');
+    },
+};
+
 // ─── Export ──────────────────────────────────────────────────────────────────
 
 export const COMPONENT_DEFINITIONS: ComponentDefinition[] = [
@@ -394,6 +426,7 @@ export const COMPONENT_DEFINITIONS: ComponentDefinition[] = [
     rainbowButton,
     gradientButton,
     imageCarousel,
+    imageSkeleton,
 ];
 
 export function getDefinition(type: string): ComponentDefinition | undefined {

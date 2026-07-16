@@ -1,0 +1,108 @@
+{
+    "id": "image-skeleton",
+    "name": "Image Skeleton",
+    "category": "Loading",
+    "description": "Premium grid loading animation with orbiting spotlights",
+    "snackId": "@mr.mukesh/image-skeleton",
+    "longDescription": "A premium image placeholder skeleton built with @shopify/react-native-skia for 60fps GPU-accelerated animations. Features a grid of subtle dots combined with dual orbiting spotlights masked precisely over the points. Includes pre-built variants for square, wide, and light-theme use cases.",
+    "gradient": "from-indigo-600 to-purple-700",
+    "emoji": "🖼️",
+    "dependencies": {
+        "required": [
+            "@shopify/react-native-skia",
+            "react-native-reanimated"
+        ],
+        "optional": []
+    },
+    "features": [
+        "GPU-accelerated Skia canvas rendering",
+        "ChatGPT-style dot grid pattern",
+        "Dual orbiting spotlights (Luminance Mask)",
+        "Customizable colors (base, dots, accent)",
+        "Pre-built variants (Square, Wide, Light)",
+        "Dark and light theme support",
+        "Adjustable animation speed"
+    ],
+    "props": [
+        {
+            "name": "width",
+            "type": "number",
+            "required": true,
+            "description": "Width of the skeleton container"
+        },
+        {
+            "name": "height",
+            "type": "number",
+            "required": true,
+            "description": "Height of the skeleton container"
+        },
+        {
+            "name": "borderRadius",
+            "type": "number",
+            "required": false,
+            "default": "16",
+            "description": "Corner radius"
+        },
+        {
+            "name": "baseColor",
+            "type": "string",
+            "required": false,
+            "default": "#171717",
+            "description": "Base background color"
+        },
+        {
+            "name": "dotColor",
+            "type": "string",
+            "required": false,
+            "default": "#ffffff",
+            "description": "Color of the dim background dots"
+        },
+        {
+            "name": "accentColor",
+            "type": "string",
+            "required": false,
+            "default": "#ffffff",
+            "description": "Color of the sweeping spotlights"
+        },
+        {
+            "name": "duration",
+            "type": "number",
+            "required": false,
+            "default": "4000",
+            "description": "Animation duration for one full cycle in ms"
+        }
+    ],
+    "usage": [
+        {
+            "title": "Basic Image Skeleton",
+            "description": "Dark theme image placeholder",
+            "code": "<ImageSkeleton\n  width={300}\n  height={300}\n/>"
+        },
+        {
+            "title": "Square Variant",
+            "description": "Square thumbnail skeleton",
+            "code": "<ImageSkeletonSquare size={200} />"
+        },
+        {
+            "title": "Wide Banner",
+            "description": "Hero image / banner skeleton",
+            "code": "<ImageSkeletonWide width={340} height={200} />"
+        },
+        {
+            "title": "Light Theme",
+            "description": "Light background variant",
+            "code": "<ImageSkeletonLight width={300} height={300} />"
+        }
+    ],
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-16",
+    "difficulty": "Medium",
+    "installation": {
+        "steps": [
+            "npm install @shopify/react-native-skia react-native-reanimated",
+            "cd ios && pod install",
+            "Copy ImageSkeleton.tsx to your components folder",
+            "Import and use"
+        ]
+    }
+}

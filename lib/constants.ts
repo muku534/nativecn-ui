@@ -136,6 +136,7 @@ export const docsNavigation = [
         items: [
             { name: 'Dynamic Bottom Sheet', href: '/components/dynamic-bottom-sheet' },
             { name: 'Skeleton Loader', href: '/components/skeleton-loader' },
+            { name: 'Image Skeleton', href: '/components/image-skeleton' },
         ],
     },
     {

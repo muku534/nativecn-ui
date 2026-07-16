@@ -72,11 +72,13 @@ writing any boilerplate.
 
 ## 🚀 Quick Start
 
+<!-- 
 ### Option 1 — CLI (Coming Soon)
 
 ```bash
 npx nativecn add animated-tab-bar
 ```
+-->
 
 ### Option 2 — Copy & Paste
 
@@ -118,7 +120,7 @@ nativecn-ui/
 - [x] Live Studio Builder with drag and drop
 - [x] SEO-indexed individual component pages
 - [x] Dark mode support
-- [ ] `npx nativecn add` CLI
+<!-- - [ ] \`npx nativecn add\` CLI -->
 - [ ] Community showcase page
 - [ ] More components (forms, auth flows, onboarding)
 

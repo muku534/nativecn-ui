@@ -91,6 +91,13 @@
             "category": "Display",
             "difficulty": "Advanced",
             "version": "1.0.0"
+        },
+        {
+            "id": "image-skeleton",
+            "path": "components/image-skeleton",
+            "category": "Loading",
+            "difficulty": "Medium",
+            "version": "1.0.0"
         }
     ]
 }
