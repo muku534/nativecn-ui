@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Copy, Check, ChevronLeft, Code2, Package, Zap, BookOpen, ArrowRight, Play, ExternalLink, Terminal } from 'lucide-react';
+import { Copy, Check, ChevronLeft, Code2, Package, Zap, BookOpen, ArrowRight, Play, ExternalLink, Terminal, Layers } from 'lucide-react';
 import type { ComponentData, ComponentMetadata } from '@/lib/types';
 import { trackComponentView, trackCopyCode, trackSnackOpen, trackTabSwitch } from '@/lib/analytics';
 
@@ -49,19 +49,14 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
     };
 
     return (
-        <div className="min-h-screen pt-24 pb-20">
+        <div className="min-h-screen pt-8 pb-20">
             {/* Header */}
             <div className="border-b border-border bg-muted/30">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                        <Link href="/components" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition">
-                            <ChevronLeft className="w-4 h-4" />
-                            Back to Components
-                        </Link>
-
                         <div className="flex items-start gap-6">
-                            <div className="w-20 h-20 rounded-[24px] bg-muted/50 border border-border/40 flex items-center justify-center text-4xl shadow-sm">
-                                {component.emoji}
+                            <div className="w-20 h-20 rounded-[24px] bg-muted/50 border border-border/40 flex items-center justify-center shadow-sm">
+                                <Layers className="w-8 h-8 text-muted-foreground" />
                             </div>
 
                             <div className="flex-1">
@@ -328,7 +323,7 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                                     <div className="space-y-3">
                                         {relatedComponents.map(related => (
                                             <Link key={related.id} href={`/components/${related.id}`} className="flex items-center gap-3 p-3 bg-muted hover:bg-muted/80 rounded-lg transition group">
-                                                <span className="text-2xl">{related.emoji}</span>
+                                                <Layers className="w-5 h-5 text-muted-foreground" />
                                                 <div className="flex-1">
                                                     <p className="font-medium text-sm group-hover:text-muted-foreground transition-colors">{related.name}</p>
                                                     <p className="text-xs text-muted-foreground line-clamp-1">{related.description}</p>
