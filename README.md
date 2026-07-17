@@ -1,154 +1,149 @@
 <div align="center">
-  <img src="public/logo-v1.png" alt="nativecn-ui" width="80" />
+  <img src="public/logo-v1.png" alt="nativecn-ui logo" width="100" />
 
-  # nativecn-ui
+  <h1 align="center">nativecn-ui</h1>
 
-  **Production-ready React Native components you actually own.**
-  No dependencies. No lock-in. Copy, paste, and ship.
+  <p align="center">
+    <strong>Premium React Native components you actually own.</strong><br/>
+    No dependencies. No vendor lock-in. Copy, paste, and ship natively.
+  </p>
 
-  [![Live Platform](https://img.shields.io/badge/Platform-Live-brightgreen?style=flat-square)](https://nativecn-ui.vercel.app)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=flat-square)](https://www.typescriptlang.org/)
-  [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](./LICENSE)
-  [![React Native](https://img.shields.io/badge/React_Native-0.76+-61DAFB?style=flat-square)](https://reactnative.dev/)
+  <p align="center">
+    <a href="https://nativecn-ui.vercel.app"><img src="https://img.shields.io/badge/Platform-Live-brightgreen?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Platform"/></a>
+    <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-100%25-blue?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License"/></a>
+    <a href="https://reactnative.dev/"><img src="https://img.shields.io/badge/React_Native-0.76+-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React Native"/></a>
+  </p>
 
-  [🌐 Platform](https://nativecn-ui.vercel.app) •
-  [🎨 Studio Builder](https://nativecn-ui.vercel.app/studio) •
-  [📖 Docs](https://nativecn-ui.vercel.app/docs) •
-  [🧩 Components](https://nativecn-ui.vercel.app/components)
-
+  <p align="center">
+    <a href="https://nativecn-ui.vercel.app"><strong>Platform</strong></a> · 
+    <a href="https://nativecn-ui.vercel.app/studio/builder"><strong>Studio Builder</strong></a> · 
+    <a href="https://nativecn-ui.vercel.app/docs"><strong>Documentation</strong></a> · 
+    <a href="https://nativecn-ui.vercel.app/components"><strong>Components</strong></a>
+  </p>
 </div>
 
 ---
 
-## Why nativecn-ui?
+## ⚡ Why nativecn-ui?
 
-Most React Native UI libraries give you a package to install
-and depend on forever. nativecn-ui gives you the **raw source
-code** — you copy it, you own it, you customize it completely.
+Most React Native UI libraries give you a heavy package to install and depend on forever. 
+**nativecn-ui** gives you the raw source code - you copy it, you own it, you customize it completely.
 
-Inspired by [shadcn/ui](https://ui.shadcn.com) but built
-specifically for React Native.
+Inspired by [shadcn/ui](https://ui.shadcn.com) but engineered exclusively for the React Native ecosystem.
 
-- ✅ Zero runtime dependencies
-- ✅ Full TypeScript support  
-- ✅ You own the code — no vendor lock-in
-- ✅ Visual Studio Builder to test layouts before coding
-- ✅ Production-ready, 60fps animations
-- ✅ Dark mode ready
+*   ✅ **Zero runtime dependencies** - keeps your bundle lean
+*   ✅ **Full TypeScript support** - type-safe from day one
+*   ✅ **Complete ownership** - you own the code, no vendor lock-in
+*   ✅ **Visual Studio Builder** - test layouts interactively before you write code
+*   ✅ **Production-ready** - buttery-smooth 60fps animations
+*   ✅ **Dark mode ready** - built-in theme support
 
 ---
 
-## 🎨 Studio Builder — Test Before You Code
+## 🎨 Studio Builder
 
-Most component libraries show you components in isolation.
-But nobody builds screens that way.
+Most component libraries force you to view components in isolation. But nobody builds apps that way.
 
-The Studio Builder lets you **drag components together,
-preview the real layout, and export the code** before
-writing any boilerplate.
+The **Studio Builder** allows you to combine components, preview real layouts directly in your browser, and export the generated boilerplate instantly.
 
-> Drag → Combine → Tweak → Preview → Export
+> **Drag → Combine → Tweak → Preview → Export**
 
-[→ Try Studio Builder](https://nativecn-ui.vercel.app/studio/builder)
+[**Try the Studio Builder now →**](https://nativecn-ui.vercel.app/studio/builder)
 
 ---
 
-## 🧩 Components
+## 🧩 Featured Components
+
+Our catalog includes a growing list of meticulously crafted, GPU-accelerated UI components:
 
 | Component | Category | Preview |
 |---|---|---|
-| Animated Tab Bar | Navigation | [View →](https://nativecn-ui.vercel.app/components/animated-tab-bar) |
-| Range Slider | Input | [View →](https://nativecn-ui.vercel.app/components/range-slider) |
-| Dynamic Bottom Sheet | Modal | [View →](https://nativecn-ui.vercel.app/components/bottom-sheet) |
-| Skeleton Loader | Loading | [View →](https://nativecn-ui.vercel.app/components/skeleton-loader) |
-| Animated Bottom Nav | Navigation | [View →](https://nativecn-ui.vercel.app/components/bottom-navigation) |
-| Floating Speed Dial | Button | [View →](https://nativecn-ui.vercel.app/components/floating-speed-dial) |
-| Rainbow Button | Button | [View →](https://nativecn-ui.vercel.app/components/rainbow-button) |
-| Switch Toggle | Input | [View →](https://nativecn-ui.vercel.app/components/switch-toggle) |
+| **Animated Tab Bar** | Navigation | [View →](https://nativecn-ui.vercel.app/components/animated-tab-bar) |
+| **Range Slider** | Input | [View →](https://nativecn-ui.vercel.app/components/range-slider) |
+| **Dynamic Bottom Sheet** | Modal | [View →](https://nativecn-ui.vercel.app/components/bottom-sheet) |
+| **Skeleton Loader** | Loading | [View →](https://nativecn-ui.vercel.app/components/skeleton-loader) |
+| **Animated Bottom Nav** | Navigation | [View →](https://nativecn-ui.vercel.app/components/bottom-navigation) |
+| **Floating Speed Dial** | Button | [View →](https://nativecn-ui.vercel.app/components/floating-speed-dial) |
+| **Rainbow Button** | Button | [View →](https://nativecn-ui.vercel.app/components/rainbow-button) |
+| **Switch Toggle** | Input | [View →](https://nativecn-ui.vercel.app/components/switch-toggle) |
 
-[Browse all components →](https://nativecn-ui.vercel.app/components)
+[**Browse the full component catalog →**](https://nativecn-ui.vercel.app/components)
 
 ---
 
 ## 🚀 Quick Start
 
-<!-- 
-### Option 1 — CLI (Coming Soon)
+### The Copy & Paste Approach
 
-```bash
-npx nativecn add animated-tab-bar
-```
--->
+1. Browse our library at [nativecn-ui.vercel.app/components](https://nativecn-ui.vercel.app/components)
+2. Select any component you like
+3. Copy the provided source code
+4. Paste it directly into your project's `components/` directory
 
-### Option 2 — Copy & Paste
-
-1. Browse components at [nativecn-ui.vercel.app/components](https://nativecn-ui.vercel.app/components)
-2. Click any component
-3. Copy the source code
-4. Paste into your project's `components/` directory
-
-No configuration. No setup. Just paste and go.
+**No configuration. No setup. Just paste and go.**
 
 ---
 
 ## 📋 Requirements
 
-- Node.js 18+
-- React Native 0.70+
-- Expo SDK 50+ (recommended)
+*   **Node.js**: 18+
+*   **React Native**: 0.70+
+*   **Expo SDK**: 50+ (Recommended for the best developer experience)
 
 ---
 
 ## 📂 Project Structure
 
-```
+If you're exploring our repository, here's how the codebase is organized:
+
+```text
 nativecn-ui/
-├── app/                    # Next.js App Router (Doc Site)
-├── components/             # Platform UI components
-├── registry/               # ✨ Core: Component source files
-│   ├── components/         # Individual component source
-│   └── registry.json       # Component manifest
-├── lib/                    # Utilities & logic
-└── public/                 # Static assets
+├── app/                    # Next.js App Router (Documentation Site)
+├── components/             # Internal UI components for the web platform
+├── registry/               # ✨ Core: The actual React Native component source code
+│   ├── components/         # Individual component implementations
+│   └── registry.json       # Component manifest for the web app
+├── lib/                    # Shared utilities and logic
+└── public/                 # Static assets and images
 ```
 
 ---
 
 ## 🗺️ Roadmap
 
-- [x] Component library with copy-paste source
-- [x] Live Studio Builder with drag and drop
-- [x] SEO-indexed individual component pages
-- [x] Dark mode support
-<!-- - [ ] \`npx nativecn add\` CLI -->
-- [ ] Community showcase page
-- [ ] More components (forms, auth flows, onboarding)
+We are constantly improving `nativecn-ui`. Here is what's on our radar:
+
+*   [x] Component library with raw copy-paste source
+*   [x] Interactive Live Studio Builder
+*   [x] SEO-optimized component documentation
+*   [x] Built-in Dark Mode support
+*   [ ] Community showcase page
+*   [ ] Comprehensive forms, authentication flows, and onboarding screens
 
 ---
 
 ## 🤝 Contributing
 
-Stars help more developers find this project ⭐
+**Stars help more developers find this project!** ⭐
 
-Issues, feedback, and PRs are all welcome.
-If you build something with nativecn-ui, share it —
-we'd love to feature it in the community showcase.
+We welcome issues, feedback, and pull requests. If you build something awesome using `nativecn-ui`, please share it! We'd love to feature your work in our upcoming community showcase.
 
 ---
 
-## 👨💻 Built By
+## 👨‍💻 Built By
 
-Built with ❤️ by **Mukesh Prajapati**
+Crafted with ❤️ by **Mukesh Prajapati**
 
-| Platform | Link |
+| Platform | Profile |
 |---|---|
-| X / Twitter | [@MukeshPraj81318](https://x.com/MukeshPraj81318) |
-| GitHub | [@muku534](https://github.com/muku534) |
-| LinkedIn | [Mukesh Prajapati](https://www.linkedin.com/in/mukesh-prajapati-a6a670235) |
-| Reddit | [u/Fresh-Wealth4531](https://www.reddit.com/user/Fresh-Wealth4531/) |
+| **X / Twitter** | [@MukeshPraj81318](https://x.com/MukeshPraj81318) |
+| **GitHub** | [@muku534](https://github.com/muku534) |
+| **LinkedIn** | [Mukesh Prajapati](https://www.linkedin.com/in/mukesh-prajapati-a6a670235) |
+| **Reddit** | [u/Fresh-Wealth4531](https://www.reddit.com/user/Fresh-Wealth4531/) |
 
 ---
 
 ## 📄 License
 
-MIT © 2026 nativecn-ui
+This project is licensed under the **MIT License** © 2026 nativecn-ui.

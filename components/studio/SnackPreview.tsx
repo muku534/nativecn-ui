@@ -174,7 +174,7 @@ export default function SnackPreview({ code, componentNames, isActive }: SnackPr
             addLog('Snack online=true');
 
             const initialState = snack.getState() as any;
-            addLog(`Initial state — webPreviewURL: ${initialState.webPreviewURL ? 'YES' : 'NO'}, online: ${initialState.online}`);
+            addLog(`Initial state - webPreviewURL: ${initialState.webPreviewURL ? 'YES' : 'NO'}, online: ${initialState.online}`);
 
             if (initialState.webPreviewURL) {
                 addLog(`Initial webPreviewURL: ${initialState.webPreviewURL.substring(0, 100)}...`);
@@ -235,7 +235,7 @@ export default function SnackPreview({ code, componentNames, isActive }: SnackPr
 
     // Handle iframe load and log ref status
     const handleIframeLoad = useCallback(() => {
-        addLog(`Iframe onLoad — webPreviewRef.current: ${webPreviewRef.current ? 'SET' : 'NULL'}`);
+        addLog(`Iframe onLoad - webPreviewRef.current: ${webPreviewRef.current ? 'SET' : 'NULL'}`);
         addLog(`Iframe contentWindow: ${iframeRef.current?.contentWindow ? 'EXISTS' : 'NULL'}`);
         // Ensure ref is set after load
         if (iframeRef.current?.contentWindow) {

@@ -30,7 +30,7 @@ export default function AboutPage() {
                         className="prose prose-lg dark:prose-invert mx-auto text-muted-foreground font-light leading-relaxed max-w-2xl text-left md:text-center"
                     >
                         <p>
-                            We recognized a persistent gap in the React Native ecosystem. Developers spend countless hours rebuilding foundational components—wrestling with gesture handlers, fighting animation performance, and struggling to achieve fluid, native-feeling interactions across platforms.
+                            We recognized a persistent gap in the React Native ecosystem. Developers spend countless hours rebuilding foundational components-wrestling with gesture handlers, fighting animation performance, and struggling to achieve fluid, native-feeling interactions across platforms.
                         </p>
                         <p className="mt-4">
                             <strong>nativecn-ui</strong> was created to solve this. It is a meticulously crafted collection of production-ready components designed to give developers absolute control, zero vendor lock-in, and uncompromising aesthetic quality out of the box.
@@ -142,7 +142,7 @@ export default function AboutPage() {
                             {
                                 icon: LayoutTemplate,
                                 title: 'Aesthetic Excellence',
-                                desc: 'Our components embody modern design language—subtle spacing, crisp typography, and fluid natural motion.'
+                                desc: 'Our components embody modern design language-subtle spacing, crisp typography, and fluid natural motion.'
                             }
                         ].map((principle, index) => {
                             const Icon = principle.icon;

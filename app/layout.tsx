@@ -10,7 +10,7 @@ import { StudioProvider } from "@/lib/studio/context";
 export const metadata: Metadata = {
   metadataBase: new URL('https://nativecn-ui.vercel.app'),
   title: {
-    default: "nativecn-ui — Premium React Native Components",
+    default: "nativecn-ui - Premium React Native Components",
     template: "%s | nativecn-ui"
   },
   description: "Copy-paste React Native UI components. Production-ready, TypeScript-first. No package bloat, just beautiful code.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "nativecn-ui — Premium React Native Components",
+    title: "nativecn-ui - Premium React Native Components",
     description: "Copy-paste React Native UI components. Production-ready, TypeScript-first.",
     url: 'https://nativecn-ui.vercel.app',
     siteName: 'nativecn-ui',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "nativecn-ui — Premium React Native Components",
+    title: "nativecn-ui - Premium React Native Components",
     description: "Copy-paste React Native UI components. Production-ready, TypeScript-first.",
     creator: '@nativecn_ui',
   },

@@ -3,7 +3,7 @@
     "name": "Custom Input",
     "category": "Input",
     "description": "Multi-variant text input with validation, icons, and password toggle",
-    "longDescription": "A highly flexible text input component with 5 visual variants (default, outlined, filled, underlined, search), 3 size presets, built-in password toggle, multiline support with auto-expanding on Android, clearable mode, error/success validation states, and full customization via style overrides and custom color themes. Zero external dependencies — uses only core React Native APIs.",
+    "longDescription": "A highly flexible text input component with 5 visual variants (default, outlined, filled, underlined, search), 3 size presets, built-in password toggle, multiline support with auto-expanding on Android, clearable mode, error/success validation states, and full customization via style overrides and custom color themes. Zero external dependencies - uses only core React Native APIs.",
     "gradient": "from-violet-500 to-purple-500",
     "emoji": "✏️",
     "snackId": "@mr.mukesh/custom-input",

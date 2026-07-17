@@ -182,7 +182,7 @@ export async function GET(request: NextRequest) {
     try {
         const type = request.nextUrl.searchParams.get('type');
 
-        // Dev count — PUBLIC (for the home page counter)
+        // Dev count - PUBLIC (for the home page counter)
         if (type === 'dev_count') {
             const doc = await getDocument('counters/global');
             if (doc && doc.fields) {
@@ -192,7 +192,7 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ dev_count: 175 });
         }
 
-        // Trending Components — PUBLIC (for the component grid)
+        // Trending Components - PUBLIC (for the component grid)
         if (type === 'trending') {
             try {
                 const res = await firestoreRestFetch('component_stats');

@@ -67,10 +67,10 @@ export default function ComponentsPageClient() {
                     <h2 className="text-2xl font-bold mb-6">How to use</h2>
                     <div className="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground">
                         <ol className="space-y-4">
-                            <li><strong>1. Find a component</strong> — Browse the sidebar to find the component you need.</li>
-                            <li><strong>2. Review dependencies</strong> — Some components require packages like <code className="bg-muted px-1 py-0.5 rounded">react-native-reanimated</code>.</li>
-                            <li><strong>3. Copy the code</strong> — Copy the source code provided in the component documentation.</li>
-                            <li><strong>4. Paste into your app</strong> — Create a new file in your project and paste the code. Customize it as needed!</li>
+                            <li><strong>1. Find a component</strong> - Browse the sidebar to find the component you need.</li>
+                            <li><strong>2. Review dependencies</strong> - Some components require packages like <code className="bg-muted px-1 py-0.5 rounded">react-native-reanimated</code>.</li>
+                            <li><strong>3. Copy the code</strong> - Copy the source code provided in the component documentation.</li>
+                            <li><strong>4. Paste into your app</strong> - Create a new file in your project and paste the code. Customize it as needed!</li>
                         </ol>
                     </div>
                 </motion.div>

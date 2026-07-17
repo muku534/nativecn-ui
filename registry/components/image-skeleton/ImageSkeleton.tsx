@@ -1,4 +1,4 @@
-// ImageSkeleton.tsx — Premium grid animation skeleton
+// ImageSkeleton.tsx - Premium grid animation skeleton
 // Uses @shopify/react-native-skia for a premium orbiting spotlight effect
 import React, { useEffect, useMemo } from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';

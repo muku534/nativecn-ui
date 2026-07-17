@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!component) return {};
 
-    const title = `${component.name} — React Native Component`;
+    const title = `${component.name} - React Native Component`;
     const description = `Free React Native ${component.name} component. Copy-paste ready, zero dependencies, fully TypeScript. ${component.description}`;
 
     return {

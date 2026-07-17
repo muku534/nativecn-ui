@@ -30,7 +30,7 @@ import {
 } from '@/lib/studio/component-definitions';
 import { generateScreenCode, getRequiredFiles } from '@/lib/studio/code-generator';
 
-// Dynamic import of SnackPreview — heavy client-side SDK, no SSR
+// Dynamic import of SnackPreview - heavy client-side SDK, no SSR
 const SnackPreview = dynamic(() => import('@/components/studio/SnackPreview'), { ssr: false });
 import { trackStudioBuilderView, trackStudioComponentAdded, trackStudioCodeExport, trackStudioCodeCopy, trackStudioPropsUpdated } from '@/lib/analytics';
 import { useStudio } from '@/lib/studio/context';
@@ -650,7 +650,7 @@ function PhoneMockup({
                     }}
                 >
 
-                    {/* Side buttons — iOS */}
+                    {/* Side buttons - iOS */}
                     {isIOS && (
                         <>
                             {/* Silent switch */}
@@ -668,7 +668,7 @@ function PhoneMockup({
                         </>
                     )}
 
-                    {/* Side buttons — Android */}
+                    {/* Side buttons - Android */}
                     {!isIOS && (
                         <>
                             {/* Volume rocker */}
@@ -680,7 +680,7 @@ function PhoneMockup({
                         </>
                     )}
 
-                    {/* Outer device body — metallic frame */}
+                    {/* Outer device body - metallic frame */}
                     <div
                         className="absolute inset-0 overflow-hidden"
                         style={{
@@ -789,7 +789,7 @@ function PhoneMockup({
                                     )}
                                 </div>
 
-                                {/* Live Preview — Snack SDK web preview (emulator only, no code editor) */}
+                                {/* Live Preview - Snack SDK web preview (emulator only, no code editor) */}
                                 {/* {previewMode === 'live' && (
                                     <div
                                         className="w-full h-full"
@@ -949,7 +949,7 @@ export default function StudioBuilderPage() {
 
     const studio = useStudio();
 
-    // Prevent hydration mismatch — @dnd-kit generates different aria IDs on server vs client
+    // Prevent hydration mismatch - @dnd-kit generates different aria IDs on server vs client
     useEffect(() => {
         setMounted(true);
         trackStudioBuilderView();
@@ -1090,7 +1090,7 @@ export default function StudioBuilderPage() {
 
     return (
         <div className="min-h-screen bg-background pt-16">
-            {/* Main Content — no separate header, controls are in the Navbar */}
+            {/* Main Content - no separate header, controls are in the Navbar */}
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
@@ -1163,7 +1163,7 @@ export default function StudioBuilderPage() {
                     ) : (
                         /* ─── Builder View ─── */
                         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_320px] gap-4 min-h-[calc(100vh-100px)] pb-10">
-                            {/* Left — Component Palette */}
+                            {/* Left - Component Palette */}
                             <div className="bg-card border border-border rounded-xl p-4 overflow-y-auto max-h-[40vh] lg:max-h-[calc(100vh-100px)] scrollbar-hide">
                                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
                                     Components
@@ -1318,7 +1318,7 @@ export default function StudioBuilderPage() {
                                 </div>
                             </div>
 
-                            {/* Center — Phone Mockup Canvas */}
+                            {/* Center - Phone Mockup Canvas */}
                             <div className="bg-slate-50 dark:bg-zinc-950 border border-border rounded-xl p-4 lg:p-8 overflow-x-auto flex justify-center min-h-[60vh] relative">
                                 <SortableContext
                                     items={nodes.map((n) => n.id)}
@@ -1346,7 +1346,7 @@ export default function StudioBuilderPage() {
                                 </SortableContext>
                             </div>
 
-                            {/* Right — Properties Panel */}
+                            {/* Right - Properties Panel */}
                             <div className="bg-card border border-border rounded-xl p-5 overflow-y-auto max-h-[40vh] lg:max-h-[calc(100vh-100px)]">
                                 {selectedNode ? (
                                     <PropsPanel node={selectedNode} onChange={handleUpdateProps} />

@@ -203,7 +203,7 @@ export function generateScreenCode(nodes: CanvasNode[], screenName: string = 'My
     }
     lines.push(`    <SafeAreaProvider>`);
     if (isFullBleed && hasCarousel) {
-        // Full-bleed layout — no ScrollView, no padding, fills screen
+        // Full-bleed layout - no ScrollView, no padding, fills screen
         lines.push(`      <View style={styles.fullBleedContainer}>`);
         lines.push(jsxLines.map(line => `        ${line}`).join('\n'));
         lines.push(`      </View>`);

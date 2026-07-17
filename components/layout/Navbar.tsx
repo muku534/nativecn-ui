@@ -51,7 +51,7 @@ export default function Navbar() {
                             </span>
                             {isStudioBuilder && (
                                 <span className="text-[10px] text-muted-foreground leading-tight -mt-0.5">
-                                    Drag, configure, export — build screens visually
+                                    Drag, configure, export - build screens visually
                                 </span>
                             )}
                         </div>

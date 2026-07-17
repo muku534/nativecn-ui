@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { cookies } from 'next/headers';
 
-// Server-only env vars — NEVER exposed to client
+// Server-only env vars - NEVER exposed to client
 const ADMIN_USERNAME = process.env.ANALYTICS_ADMIN_USERNAME || '';
 const ADMIN_PASSWORD = process.env.ANALYTICS_PASSWORD || '';
 const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
             const expiry = Date.now() + SESSION_DURATION;
             validSessions.set(sessionId, { expiry });
 
-            // Set httpOnly cookie — JavaScript CANNOT access this
+            // Set httpOnly cookie - JavaScript CANNOT access this
             const response = NextResponse.json({ success: true });
             response.cookies.set(COOKIE_NAME, sessionId, {
                 httpOnly: true,       // JS cannot read this cookie

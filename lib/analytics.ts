@@ -37,7 +37,7 @@ async function serverTrack(action: string, data: Record<string, any>): Promise<v
             body: JSON.stringify({ action, ...data }),
         });
     } catch {
-        // Silent fail — analytics should never break the UI
+        // Silent fail - analytics should never break the UI
     }
 }
 
@@ -179,9 +179,9 @@ export function trackStudioCodeCopy() {
     }
 }
 
-// ─── Admin Auth (httpOnly cookie — no tokens in client) ──────────────────────
+// ─── Admin Auth (httpOnly cookie - no tokens in client) ──────────────────────
 
-/** Login with username + password — session stored in httpOnly cookie */
+/** Login with username + password - session stored in httpOnly cookie */
 export async function adminLogin(
     username: string,
     password: string
@@ -222,7 +222,7 @@ export async function isAdminAuthenticated(): Promise<boolean> {
     }
 }
 
-/** Logout — server clears the httpOnly cookie */
+/** Logout - server clears the httpOnly cookie */
 export async function logoutAdmin(): Promise<void> {
     try {
         await fetch('/api/analytics/auth', {
@@ -256,7 +256,7 @@ interface GlobalCounters {
     visit_other?: number;
 }
 
-/** Get global counters — requires admin session */
+/** Get global counters - requires admin session */
 export async function getGlobalCounters(): Promise<GlobalCounters> {
     const defaultData: GlobalCounters = {
         dev_count: 175,
@@ -284,7 +284,7 @@ export async function getGlobalCounters(): Promise<GlobalCounters> {
     }
 }
 
-/** Get all component stats — requires admin session */
+/** Get all component stats - requires admin session */
 export async function getAllComponentStats(): Promise<
     Record<string, { views: number; copies: number; snack_opens: number }>
 > {
@@ -297,7 +297,7 @@ export async function getAllComponentStats(): Promise<
     }
 }
 
-/** Get dev count (public — for the home page) */
+/** Get dev count (public - for the home page) */
 export async function getDevCount(): Promise<number> {
     try {
         const res = await fetch('/api/analytics/track?type=dev_count');

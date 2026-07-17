@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Book, Rocket, Settings, Sparkles, Copy, Check, ExternalLink } from 'lucide-react';
+import { ArrowRight, Book, Rocket, Settings, Sparkles, Copy, Check, ExternalLink, Zap, Shield, BookOpen, LayoutGrid, Compass, Sliders, MousePointer2, Layers, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import type { ComponentMetadata } from '@/lib/types';
 
@@ -25,7 +25,22 @@ const quickLinks = [
         description: 'Customize components to match your design system.',
         href: '/docs/customization',
     },
+    {
+        icon: Shield,
+        title: 'Security',
+        description: 'Best practices and security guidelines.',
+        href: '/docs/security',
+    },
 ];
+
+const categoryIcons: Record<string, any> = {
+    'All': LayoutGrid,
+    'Navigation': Compass,
+    'Input': Sliders,
+    'Button': MousePointer2,
+    'Modal': Layers,
+    'Loading': Loader2,
+};
 
 interface DocsPageClientProps {
     components: ComponentMetadata[];
@@ -101,7 +116,7 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
             {/* Components Section */}
             <section className="mb-12">
                 <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                    <span className="text-3xl">📦</span>
+                    <Layers className="w-8 h-8 text-muted-foreground" />
                     All Components
                     <span className="ml-2 px-2 py-0.5 bg-muted text-foreground border border-border/50 rounded-full text-sm font-medium">
                         {components.length}
@@ -109,7 +124,10 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                 </h2>
 
                 {/* Components by Category */}
-                {Object.entries(componentsByCategory).map(([category, categoryComponents]) => (
+                {Object.entries(componentsByCategory).map(([category, categoryComponents]) => {
+                    const Icon = categoryIcons[category] || LayoutGrid;
+                    
+                    return (
                     <div key={category} className="mb-8">
                         <h3 className="text-lg font-semibold mb-4 text-muted-foreground">{category}</h3>
                         <div className="space-y-3">
@@ -119,27 +137,27 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.2, delay: index * 0.05 }}
-                                    className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 transition-all"
+                                    className="group relative flex items-center gap-4 p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 transition-all cursor-pointer"
                                 >
-                                    {/* Emoji Icon */}
-                                    <div className={`w-12 h-12 rounded-xl bg-muted/50 border border-border/40 flex items-center justify-center text-2xl shadow-sm`}>
-                                        {component.emoji}
+                                    <Link href={`/components/${component.id}`} className="absolute inset-0 z-0" />
+
+                                    {/* Icon */}
+                                    <div className={`relative z-10 w-12 h-12 rounded-xl bg-muted/50 border border-border/40 flex items-center justify-center text-2xl shadow-sm`}>
+                                        <Icon className="w-6 h-6 text-muted-foreground group-hover:text-foreground transition-colors" />
                                     </div>
 
                                     {/* Info */}
-                                    <div className="flex-1 min-w-0">
-                                        <Link href={`/components/${component.id}`}>
-                                            <h4 className="font-semibold text-foreground group-hover:text-muted-foreground transition-colors cursor-pointer">
-                                                {component.name}
-                                            </h4>
-                                        </Link>
+                                    <div className="relative z-10 flex-1 min-w-0 pointer-events-none">
+                                        <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                                            {component.name}
+                                        </h4>
                                         <p className="text-sm text-muted-foreground truncate">
                                             {component.description}
                                         </p>
                                     </div>
 
                                     {/* Badges */}
-                                    <div className="hidden sm:flex items-center gap-2">
+                                    <div className="relative z-10 hidden sm:flex items-center gap-2 pointer-events-none">
                                         {component.dependencies.required.length === 0 ? (
                                             <span className="px-2 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-md text-xs font-medium">
                                                 Zero deps
@@ -155,7 +173,7 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                                     </div>
 
                                     {/* Actions */}
-                                    <div className="flex items-center gap-2">
+                                    <div className="relative z-10 flex items-center gap-2">
                                         <button
                                             onClick={() => handleCopy(component)}
                                             className="p-2 rounded-lg bg-muted hover:bg-foreground hover:text-background transition-all"
@@ -179,7 +197,7 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                             ))}
                         </div>
                     </div>
-                ))}
+                )})}
             </section>
 
             {/* Overview */}
@@ -192,7 +210,7 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                         nativecn-ui is a collection of premium React Native UI components designed for
                         developers who want <span className="text-foreground font-semibold">full control</span> over their code.
                         Unlike traditional component libraries that hide logic in <code>node_modules</code>, we use a
-                        copy-paste approach – you own the code, you control the quality.
+                        copy-paste approach. You own the code, you control the quality.
                     </p>
                 </section>
 
@@ -201,7 +219,7 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                     <div className="grid md:grid-cols-2 gap-6">
                         <div className="p-6 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
                             <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                                <span className="p-1.5 rounded-lg bg-red-500/10 text-red-500">⚡️</span>
+                                <span className="p-1.5 rounded-lg bg-red-500/10 text-red-500"><Zap className="w-5 h-5" /></span>
                                 Zero Dependencies
                             </h3>
                             <p className="text-muted-foreground text-sm">
@@ -210,7 +228,7 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                         </div>
                         <div className="p-6 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
                             <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                                <span className="p-1.5 rounded-lg bg-green-500/10 text-green-500">🛡️</span>
+                                <span className="p-1.5 rounded-lg bg-green-500/10 text-green-500"><Shield className="w-5 h-5" /></span>
                                 Full Ownership
                             </h3>
                             <p className="text-muted-foreground text-sm">
@@ -219,7 +237,7 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                         </div>
                         <div className="p-6 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
                             <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                                <span className="p-1.5 rounded-lg bg-muted border border-border/50 text-foreground">📘</span>
+                                <span className="p-1.5 rounded-lg bg-muted border border-border/50 text-foreground"><BookOpen className="w-5 h-5" /></span>
                                 TypeScript First
                             </h3>
                             <p className="text-muted-foreground text-sm">
@@ -228,7 +246,7 @@ export default function DocsPageClient({ components }: DocsPageClientProps) {
                         </div>
                         <div className="p-6 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
                             <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                                <span className="p-1.5 rounded-lg bg-purple-500/10 text-purple-500">🚀</span>
+                                <span className="p-1.5 rounded-lg bg-purple-500/10 text-purple-500"><Rocket className="w-5 h-5" /></span>
                                 Production Ready
                             </h3>
                             <p className="text-muted-foreground text-sm">
