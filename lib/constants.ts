@@ -23,7 +23,6 @@ export const navigation = [
     { name: 'Studio', href: '/studio' },
     { name: 'Docs', href: '/docs' },
     { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' },
 ];
 
 export const footerLinks = {
@@ -39,7 +38,6 @@ export const footerLinks = {
     ],
     company: [
         { name: 'About', href: '/about' },
-        { name: 'Blog', href: '/blog' },
         { name: 'Contact', href: '/contact' },
         { name: 'Privacy', href: '/privacy' },
     ],
