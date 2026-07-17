@@ -2,16 +2,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Light mode CSS variables - Clean & Airy */
+/* Light mode CSS variables - Editorial Canvas */
 :root {
-  --background: 0 0% 100%;
+  --background: 210 20% 98%; /* #f9fafb */
   --foreground: 240 10% 3.9%;
   --muted: 240 4.8% 95.9%;
   --muted-foreground: 240 3.8% 46.1%;
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
-  --primary: 240 5.9% 10%;
-  --primary-foreground: 0 0% 98%;
+  --primary: 240 5.9% 10%; /* Black */
+  --primary-foreground: 0 0% 100%;
   --secondary: 240 4.8% 95.9%;
   --secondary-foreground: 240 5.9% 10%;
   --accent: 240 4.8% 95.9%;
@@ -19,21 +19,22 @@
   --ring: 240 5.9% 10%;
 }
 
-/* Dark mode CSS variables - Deep & Crisp */
+/* Dark mode CSS variables - True Black */
 .dark {
-  --background: 0 0% 3%;
+  --background: 0 0% 0%;
   --foreground: 0 0% 98%;
-  --muted: 0 0% 10%;
+  --muted: 0 0% 8%;
   --muted-foreground: 240 5% 64.9%;
-  --border: 0 0% 12%;
-  --input: 0 0% 12%;
+  --border: 0 0% 10%;
+  --input: 0 0% 10%;
   --primary: 0 0% 98%;
   --primary-foreground: 0 0% 9%;
-  --secondary: 0 0% 10%;
+  --secondary: 0 0% 8%;
   --secondary-foreground: 0 0% 98%;
-  --accent: 0 0% 12%;
+  --accent: 0 0% 10%;
   --accent-foreground: 0 0% 98%;
   --ring: 0 0% 20%;
+  --card: 0 0% 4%;
 }
 
 @theme inline {
@@ -50,6 +51,7 @@
   --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-card: hsl(var(--card, var(--background)));
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 
@@ -133,9 +135,15 @@ body {
   background-clip: text;
 }
 
+/* Selection highlight */
+::selection {
+  background: hsl(var(--foreground) / 0.1);
+  color: hsl(var(--foreground));
+}
+
 /* Subtle Dot Background for both themes */
 .bg-dot-pattern {
-  background-image: radial-gradient(hsl(var(--foreground) / 0.1) 1px, transparent 1px);
+  background-image: radial-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 

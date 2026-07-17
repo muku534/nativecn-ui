@@ -2,27 +2,31 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Code2, Star, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import HeroShowcase from './HeroShowcase';
-import { CliCommand } from './CliCommand';
 
 export default function Hero() {
     return (
-        <section className="relative pt-32 pb-24 px-4 overflow-hidden bg-background">
-            {/* Very subtle background pattern */}
-            <div className="absolute inset-0 z-0 bg-dot-pattern opacity-[0.4] dark:opacity-[0.2]" />
-
+        <section className="relative pt-32 pb-24 px-4 bg-transparent border-b border-dashed border-neutral-200 dark:border-neutral-800">
+            {/* The Blueprint Canvas Grid (Optional: just relying on borders for now) */}
+            
             <div className="max-w-6xl mx-auto flex flex-col items-center text-center relative z-10">
 
-                {/* Badge -> Trust Signal */}
+                    {/* Badge */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/40 bg-muted/20 text-xs font-medium text-muted-foreground shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur-sm"
                 >
-                    <Star className="w-3.5 h-3.5 text-yellow-500/80" fill="currentColor" />
-                    <span className="tracking-wide">Trusted by developers worldwide</span>
+                    <Link
+                        href="/components"
+                        className="group inline-flex items-center gap-2 rounded-full bg-white dark:bg-neutral-900 py-1.5 pr-4 pl-3 text-xs font-medium text-neutral-700 dark:text-neutral-200 transition-colors border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800 shadow-sm"
+                    >
+                        <span>Open Source</span>
+                        <span className="inline-block h-4 w-px bg-neutral-300 dark:bg-neutral-700" />
+                        <span>React Native Components</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </Link>
                 </motion.div>
 
                 {/* Main Heading */}
@@ -30,10 +34,10 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="text-5xl md:text-6xl lg:text-[72px] font-bold tracking-[-0.02em] text-foreground max-w-5xl leading-[1.05]"
+                    className="mt-8 text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-balance text-neutral-900 dark:text-neutral-50 max-w-5xl leading-[1.1] md:leading-[1.1]"
                 >
-                    Production-ready React Native components <br className="hidden lg:block" />
-                    <span className="text-muted-foreground">you actually own.</span>
+                    Production-ready components{' '}
+                    <span className="inline-block bg-primary text-primary-foreground px-4 py-1 -rotate-1 mt-2 lg:mt-0 shadow-lg">you actually own.</span>
                 </motion.h1>
 
                 {/* Subheading */}
@@ -41,9 +45,9 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl leading-[1.6] font-light tracking-[-0.01em]"
+                    className="mt-6 text-base md:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed tracking-wide antialiased"
                 >
-                    Zero dependencies. Zero lock-in. A curated collection of meticulously designed components you can copy and paste directly into your project.
+                    Zero dependencies. Zero lock-in. A curated collection of meticulously designed React Native components you can copy and paste directly into your project.
                 </motion.p>
 
                 {/* CTA Buttons */}
@@ -55,28 +59,17 @@ export default function Hero() {
                 >
                     <Link
                         href="/studio/builder"
-                        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-foreground text-background rounded-full font-medium text-sm transition-all hover:bg-foreground/90 hover:scale-[1.02] shadow-[0_0_0_1px_rgba(255,255,255,0.05)_inset,0_4px_14px_0_rgba(0,0,0,0.1)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.05)_inset,0_4px_14px_0_rgba(255,255,255,0.1)] active:scale-[0.98]"
+                        className="flex h-12 w-full sm:w-48 items-center justify-center rounded-md bg-primary text-base font-medium text-primary-foreground shadow-md transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
                     >
                         Try Studio Builder
                     </Link>
                     <Link
                         href="/components"
-                        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-transparent border border-border/40 rounded-full font-medium text-sm transition-all hover:bg-muted/40 text-foreground hover:border-border/80 active:scale-[0.98]"
+                        className="flex h-12 w-full sm:w-48 items-center justify-center rounded-md border border-neutral-300 bg-white text-base font-medium text-neutral-900 shadow-sm transition duration-150 active:scale-[0.98] hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
                     >
                         Browse Components
                     </Link>
                 </motion.div>
-
-                {/* CLI Command Preview - Commented out for now as npm package is not available */}
-                {/* <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.35 }}
-                    className="mt-12"
-                >
-                    <CliCommand />
-                </motion.div> */}
-
 
                 {/* Visual Anchor: The Component Showcase */}
                 <motion.div
@@ -90,6 +83,6 @@ export default function Hero() {
                     <div className="absolute -bottom-24 left-0 right-0 h-48 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none z-20" />
                 </motion.div>
             </div>
-        </section >
+        </section>
     );
 }

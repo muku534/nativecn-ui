@@ -77,8 +77,12 @@ export default function RootLayout({
         >
           <StudioProvider>
             <AnalyticsProvider />
+            {/* The Floating Navbar will be anchored here */}
             <Navbar />
-            <main className="min-h-screen">{children}</main>
+            {/* Editorial Structural Grid */}
+            <main className="min-h-screen relative mx-auto max-w-[1400px] border-x border-dashed border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black">
+              {children}
+            </main>
             <Footer />
           </StudioProvider>
         </ThemeProvider>

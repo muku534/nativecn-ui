@@ -30,11 +30,8 @@ export default function HeroShowcase() {
 
     return (
         <div className="w-full max-w-5xl mx-auto mt-24 relative z-10">
-            {/* Soft background glow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 via-purple-500/5 to-transparent blur-3xl rounded-full" />
-
-            {/* The Bento Grid Container - Removed heavy shadows for a flatter, cleaner look */}
-            <div className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 rounded-[2rem] bg-zinc-50/50 dark:bg-black/50 border border-zinc-200/50 dark:border-white/5 backdrop-blur-xl relative">
+            {/* The Bento Grid Container - Ultra minimal on light mode */}
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 rounded-[2rem] bg-white border border-neutral-200 dark:bg-black/80 dark:border-white/10 relative z-10 shadow-sm">
 
                 {/* 1. Animated Tab Bar (col-span-4) - reduced height and padding */}
                 <motion.div
@@ -110,7 +107,7 @@ export default function HeroShowcase() {
                             const Icon = item === 'Home' ? Home : item === 'Search' ? Search : item === 'Bell' ? Bell : User;
                             const isActive = activeNav === item;
                             return (
-                                <button key={item} onClick={() => setActiveNav(item)} className={`relative flex-1 py-2.5 flex flex-col items-center justify-center transition-colors z-20 ${isActive ? 'text-[#FF0080]' : 'text-zinc-500 dark:text-zinc-600 hover:text-foreground'}`}>
+                                <button key={item} onClick={() => setActiveNav(item)} className={`relative flex-1 py-2.5 flex flex-col items-center justify-center transition-colors z-20 ${isActive ? 'text-primary' : 'text-zinc-500 dark:text-zinc-600 hover:text-foreground'}`}>
                                     {isActive && (
                                         <motion.div
                                             layoutId="bottomNavIndicator"
@@ -179,7 +176,7 @@ export default function HeroShowcase() {
                             onClick={() => setFabOpen(!fabOpen)}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FF0080] to-[#FF6347] text-white flex items-center justify-center border border-transparent shadow-sm z-50 relative"
+                            className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center border border-transparent shadow-sm z-50 relative"
                         >
                             <motion.div animate={{ rotate: fabOpen ? 45 : 0 }} transition={springTransition}>
                                 <Plus className="w-6 h-6" />

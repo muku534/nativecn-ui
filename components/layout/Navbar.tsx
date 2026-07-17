@@ -58,12 +58,12 @@ export default function Navbar() {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-1">
+                    <div className="hidden md:flex items-center space-x-0.5">
                         {navigation.map((item) => (
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                className={`px-4 py-2 text-muted-foreground hover:text-foreground transition-colors duration-200 rounded-lg hover:bg-muted ${pathname === item.href ? 'text-foreground bg-muted/80 font-medium' : ''
+                                className={`px-3 py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-foreground transition-colors duration-150 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 ${pathname === item.href ? 'text-foreground font-medium' : ''
                                     }`}
                             >
                                 {item.name}
@@ -112,12 +112,15 @@ export default function Navbar() {
                             </>
                         ) : (
                             /* ─── Default: Get Started ─── */
-                            <Link
-                                href="/components"
-                                className="px-5 py-2.5 bg-foreground text-background hover:bg-foreground/90 rounded-lg font-medium transition-all duration-200 shadow-sm"
-                            >
-                                Get Started
-                            </Link>
+                            <>
+                                <div className="h-4 w-px bg-neutral-300 dark:bg-neutral-700" />
+                                <Link
+                                    href="/components"
+                                    className="px-5 py-2.5 bg-neutral-900 text-white dark:bg-white dark:text-black rounded-lg font-medium text-sm transition-all duration-200 shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-inset ring-offset-0 hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-[0.98] dark:shadow-[0px_0px_10px_0px_rgba(0,0,0,0.2)_inset] dark:ring-black/20 dark:hover:shadow-[0px_0px_20px_0px_rgba(0,0,0,0.3)_inset] dark:hover:ring-black/50"
+                                >
+                                    Get Started
+                                </Link>
+                            </>
                         )}
                         <ThemeToggle />
                     </div>
