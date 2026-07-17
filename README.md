@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="public/logo-v1.png" alt="nativecn-ui logo" width="100" />
+  <img src="public/logo.svg" alt="Nativecn-ui logo" width="80" />
 
-  <h1 align="center">nativecn-ui</h1>
+  <h1 align="center">Nativecn-ui</h1>
 
   <p align="center">
     <strong>Premium React Native components you actually own.</strong><br/>

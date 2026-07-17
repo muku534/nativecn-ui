@@ -10,17 +10,13 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                     {/* Brand */}
                     <div className="lg:col-span-2">
-                        <Link href="/" className="flex items-center space-x-2 group mb-4">
-                            <div className="relative w-8 h-8">
-                                <Image
-                                    src="/logo-v1.png"
-                                    alt="nativecn-ui logo"
-                                    fill
-                                    className="object-contain"
-                                />
-                            </div>
-                            <span className="font-bold text-lg text-foreground">
-                                nativecn-ui
+                        <Link href="/" className="flex items-center group mb-4">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[18px] h-[18px] text-foreground transition-transform group-hover:scale-105 shrink-0">
+                                <path d="M2 22 L8 2 L14 2 L22 22 L16 22 L11.43 10.57 L8 22 Z" fill="currentColor"/>
+                                <path d="M16 2 L22 2 L22 19 L16 4 Z" fill="currentColor"/>
+                            </svg>
+                            <span className="font-bold text-xl text-foreground tracking-tight leading-none ml-[1px]">
+                                ativecn-ui
                             </span>
                         </Link>
                         <p className="text-muted-foreground max-w-sm mb-6 leading-relaxed">

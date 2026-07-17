@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     creator: '@nativecn_ui',
   },
   icons: {
-    icon: "/logo-v1.png",
-    shortcut: "/logo-v1.png",
-    apple: "/logo-v1.png",
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
   },
 };
 

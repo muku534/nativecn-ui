@@ -36,25 +36,21 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo + subtitle on playground */}
-                    <Link href="/" className="flex items-center space-x-2 group">
-                        <div className="relative w-8 h-8">
-                            <Image
-                                src="/logo-v1.png"
-                                alt="nativecn-ui logo"
-                                fill
-                                className="object-contain"
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="font-bold text-lg text-foreground leading-tight tracking-tight">
-                                nativecn-ui
+                    <Link href="/" className="flex flex-col justify-center group">
+                        <div className="flex items-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[18px] h-[18px] text-foreground transition-transform group-hover:scale-105 shrink-0">
+                                <path d="M2 22 L8 2 L14 2 L22 22 L16 22 L11.43 10.57 L8 22 Z" fill="currentColor"/>
+                                <path d="M16 2 L22 2 L22 19 L16 4 Z" fill="currentColor"/>
+                            </svg>
+                            <span className="font-bold text-xl text-foreground tracking-tight leading-none ml-[1px]">
+                                ativecn-ui
                             </span>
-                            {isStudioBuilder && (
-                                <span className="text-[10px] text-muted-foreground leading-tight -mt-0.5">
-                                    Drag, configure, export - build screens visually
-                                </span>
-                            )}
                         </div>
+                        {isStudioBuilder && (
+                            <span className="text-[10px] text-muted-foreground leading-tight ml-[19px] mt-1">
+                                Drag, configure, export - build screens visually
+                            </span>
+                        )}
                     </Link>
 
                     {/* Desktop Navigation */}
