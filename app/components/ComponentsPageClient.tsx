@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { ComponentMetadata } from '@/lib/types';
 import { CreditCard, Shield, Smartphone, Home, Search, Bell, User, Plus, FileText, Users, Calendar, Type, Image as ImageIcon, Sparkles, Layers } from 'lucide-react';
 
@@ -152,13 +152,70 @@ const SkeletonLoaderThumbnail = () => {
 };
 
 const RainbowButtonThumbnail = () => {
+    const width = 160;
+    const height = 48;
+    const borderRadius = 16;
+    const borderWidth = 2;
+    const perimeter = 2 * (width + height - 2 * borderRadius) + 2 * Math.PI * borderRadius;
+    const sweepLength = perimeter * 0.35;
+
     return (
         <div className="w-full h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-            <div className="relative group/btn cursor-pointer">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00C0FF] via-[#FFCF00] to-[#FC4F4F] rounded-xl blur opacity-60 group-hover/btn:opacity-100 transition duration-1000 group-hover/btn:duration-200 animate-pulse"></div>
-                <button className="relative px-6 py-2.5 bg-white dark:bg-black rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center gap-2">
-                    <span className="text-sm font-medium text-zinc-800 dark:text-zinc-200">Rainbow Button</span>
-                </button>
+            <div className="relative cursor-pointer" style={{ width, height }}>
+                <svg width={width} height={height} className="absolute inset-0">
+                    <defs>
+                        <linearGradient id="rainbow" x1="0" y1="0" x2={width} y2={height} gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stopColor="#00C0FF" />
+                            <stop offset="33%" stopColor="#FFCF00" />
+                            <stop offset="66%" stopColor="#FC4F4F" />
+                            <stop offset="100%" stopColor="#00C0FF" />
+                        </linearGradient>
+                    </defs>
+                    <rect
+                        x={borderWidth / 2}
+                        y={borderWidth / 2}
+                        width={width - borderWidth}
+                        height={height - borderWidth}
+                        rx={borderRadius - borderWidth / 2}
+                        ry={borderRadius - borderWidth / 2}
+                        stroke="#E4E4E7"
+                        className="dark:stroke-zinc-800"
+                        strokeWidth={borderWidth}
+                        fill="none"
+                    />
+                    <motion.rect
+                        x={borderWidth / 2}
+                        y={borderWidth / 2}
+                        width={width - borderWidth}
+                        height={height - borderWidth}
+                        rx={borderRadius - borderWidth / 2}
+                        ry={borderRadius - borderWidth / 2}
+                        stroke="url(#rainbow)"
+                        strokeWidth={borderWidth}
+                        fill="none"
+                        strokeDasharray={`${sweepLength} ${perimeter - sweepLength}`}
+                        animate={{
+                            strokeDashoffset: [0, -perimeter]
+                        }}
+                        transition={{
+                            duration: 3,
+                            ease: "linear",
+                            repeat: Infinity
+                        }}
+                    />
+                </svg>
+                <div 
+                    className="absolute flex items-center justify-center bg-white dark:bg-black font-semibold text-xs text-zinc-800 dark:text-zinc-200"
+                    style={{
+                        top: borderWidth,
+                        left: borderWidth,
+                        width: width - borderWidth * 2,
+                        height: height - borderWidth * 2,
+                        borderRadius: borderRadius - borderWidth
+                    }}
+                >
+                    Rainbow Button
+                </div>
             </div>
         </div>
     );
@@ -186,10 +243,40 @@ const BottomSheetThumbnail = () => {
 
 const DatePickerThumbnail = () => {
     return (
-        <div className="w-full h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 rounded-xl px-4 py-2.5 flex items-center gap-3 shadow-sm w-48">
-                <Calendar className="w-4 h-4 text-zinc-400" />
-                <span className="text-xs text-zinc-400 font-medium">Select a date</span>
+        <div className="group/picker w-full h-full flex flex-col justify-center items-center bg-zinc-50 dark:bg-zinc-950 p-6">
+            <div className="w-full max-w-[180px] space-y-1.5 relative">
+                <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400">Date of Birth</span>
+                <div className="w-full h-9 border border-zinc-200 dark:border-zinc-800 rounded-lg flex items-center justify-between px-3 bg-white dark:bg-zinc-900 cursor-pointer shadow-sm">
+                    <span className="text-[11px] text-zinc-950 dark:text-zinc-50">08/17/2026</span>
+                    <span className="text-xs">📅</span>
+                </div>
+
+                <div className="absolute top-16 left-0 right-0 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg overflow-hidden z-20 scale-90 origin-top opacity-0 group-hover/picker:opacity-100 group-hover/picker:scale-100 transition-all duration-300 pointer-events-none">
+                    <div className="flex items-center justify-between px-2.5 py-1.5 border-b border-zinc-100 dark:border-zinc-850 bg-zinc-50/50 dark:bg-zinc-900/30">
+                        <span className="text-[9px] font-semibold text-zinc-500">Select Date</span>
+                    </div>
+                    <div className="relative h-20 flex items-center justify-center overflow-hidden bg-zinc-50/30 dark:bg-zinc-950/10">
+                        <div className="absolute left-1 right-1 h-6 bg-zinc-100 dark:bg-zinc-800/40 rounded-lg border border-zinc-200/50 dark:border-zinc-700/30" />
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white dark:from-zinc-900 via-transparent to-white dark:to-zinc-900 opacity-95" />
+                        <div className="flex justify-around w-full px-1.5 z-10 font-mono text-[9px]">
+                            <div className="flex flex-col items-center">
+                                <span className="text-[7.5px] text-zinc-400 dark:text-zinc-650">July</span>
+                                <span className="font-semibold text-zinc-900 dark:text-zinc-100">August</span>
+                                <span className="text-[7.5px] text-zinc-400 dark:text-zinc-650">Sept</span>
+                            </div>
+                            <div className="flex flex-col items-center">
+                                <span className="text-[7.5px] text-zinc-400 dark:text-zinc-650">16</span>
+                                <span className="font-semibold text-zinc-900 dark:text-zinc-100">17</span>
+                                <span className="text-[7.5px] text-zinc-400 dark:text-zinc-650">18</span>
+                            </div>
+                            <div className="flex flex-col items-center">
+                                <span className="text-[7.5px] text-zinc-400 dark:text-zinc-650">2025</span>
+                                <span className="font-semibold text-zinc-900 dark:text-zinc-100">2026</span>
+                                <span className="text-[7.5px] text-zinc-400 dark:text-zinc-650">2027</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -248,27 +335,160 @@ const GradientButtonThumbnail = () => {
 };
 
 const ImageCarouselThumbnail = () => {
+    const images = [
+        { url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&auto=format&fit=crop&q=60', title: 'Yosemite Valley', desc: 'California, USA' },
+        { url: 'https://images.unsplash.com/photo-1511576661531-b34d7ad5d0db?w=300&auto=format&fit=crop&q=60', title: 'Alpine Peaks', desc: 'Chamonix, France' },
+        { url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&auto=format&fit=crop&q=60', title: 'Misty Forest', desc: 'Vancouver, Canada' }
+    ];
+
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % images.length);
+        }, 3500);
+        return () => clearInterval(timer);
+    }, []);
+
+    const cardWidth = 100;
+    const cardGap = 12;
+    const itemSize = cardWidth + cardGap;
+
     return (
-        <div className="w-full h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-950 overflow-hidden">
-            <div className="flex gap-3 px-4 w-full">
-                <motion.div animate={{ x: [-100, 0] }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 8, ease: "linear" }} className="flex gap-3">
-                    {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="w-32 h-20 rounded-xl bg-zinc-200 dark:bg-zinc-800/80 flex-shrink-0 flex items-center justify-center shadow-sm">
-                            <ImageIcon className="w-6 h-6 text-zinc-400 dark:text-zinc-600" />
-                        </div>
-                    ))}
-                </motion.div>
+        <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-50 dark:bg-zinc-950 p-4 relative overflow-hidden">
+            <div className="relative w-[100px] h-[110px] flex items-center justify-center" style={{ perspective: 1000 }}>
+                {images.map((img, idx) => {
+                    const offset = idx - activeIndex;
+                    let displayOffset = offset;
+                    if (offset < -1) displayOffset = offset + images.length;
+                    if (offset > 1) displayOffset = offset - images.length;
+
+                    const isActive = displayOffset === 0;
+                    const isVisible = Math.abs(displayOffset) <= 1;
+
+                    return (
+                        <motion.div
+                            key={idx}
+                            style={{
+                                position: 'absolute',
+                                width: cardWidth,
+                                height: '100%',
+                                borderRadius: '16px',
+                                backgroundImage: `url(${img.url})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                zIndex: isActive ? 10 : 5,
+                            }}
+                            animate={{
+                                scale: isActive ? 1 : 0.82,
+                                x: displayOffset * itemSize,
+                                opacity: isVisible ? (isActive ? 1 : 0.45) : 0,
+                                rotateY: displayOffset * -35,
+                            }}
+                            transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                            className="border border-white/20 shadow-lg flex items-end overflow-hidden pointer-events-none"
+                        >
+                            <div className="w-full bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2.5 text-left">
+                                <p className="text-[9px] font-bold text-white leading-tight truncate">{img.title}</p>
+                                <p className="text-[7.5px] text-zinc-300 truncate">{img.desc}</p>
+                            </div>
+                        </motion.div>
+                    );
+                })}
+            </div>
+
+            <div className="flex items-center gap-1.5 mt-4 z-10">
+                {images.map((_, idx) => {
+                    const isActive = idx === activeIndex;
+                    return (
+                        <motion.div
+                            key={idx}
+                            className="h-1 bg-zinc-800 dark:bg-zinc-200 rounded-full"
+                            animate={{
+                                width: isActive ? 12 : 4,
+                                opacity: isActive ? 1 : 0.25,
+                            }}
+                            transition={{ duration: 0.3 }}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
 };
 
 const ImageSkeletonThumbnail = () => {
+    const [time, setTime] = useState(0);
+    useEffect(() => {
+        let frame: number;
+        const tick = () => {
+            setTime(t => t + 0.02);
+            frame = requestAnimationFrame(tick);
+        };
+        frame = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(frame);
+    }, []);
+
+    const width = 200;
+    const height = 120;
+    const r = Math.min(width, height) * 0.4;
+    const cx = width / 2;
+    const cy = height / 2;
+
+    const x1 = cx + Math.cos(time) * r;
+    const y1 = cy + Math.sin(time) * r;
+
+    const x2 = cx + Math.sin(time * 1.5) * r;
+    const y2 = cy + Math.cos(time * 1.5) * r;
+
+    const dotSpacing = 14;
+    const cols = Math.floor(width / dotSpacing);
+    const rows = Math.floor(height / dotSpacing);
+    const offsetX = (width - (cols - 1) * dotSpacing) / 2;
+    const offsetY = (height - (rows - 1) * dotSpacing) / 2;
+
+    const dots = [];
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            dots.push({ x: offsetX + i * dotSpacing, y: offsetY + j * dotSpacing });
+        }
+    }
+
     return (
-        <div className="w-full h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-            <div className="w-32 h-32 rounded-2xl bg-zinc-200 dark:bg-zinc-800/80 animate-pulse flex items-center justify-center relative overflow-hidden">
-                <ImageIcon className="w-8 h-8 text-zinc-300 dark:text-zinc-700" />
-                <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 dark:via-white/5 to-transparent" />
+        <div className="w-full h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-950 p-4">
+            <div 
+                className="relative overflow-hidden bg-[#171717] border border-zinc-200 dark:border-zinc-800" 
+                style={{ width, height, borderRadius: 12 }}
+            >
+                <svg width={width} height={height} className="absolute inset-0">
+                    <defs>
+                        <radialGradient id="spot1" cx={`${(x1 / width) * 100}%`} cy={`${(y1 / height) * 100}%`} r="35%">
+                            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+                            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                        </radialGradient>
+                        <radialGradient id="spot2" cx={`${(x2 / width) * 100}%`} cy={`${(y2 / height) * 100}%`} r="30%">
+                            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
+                            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                        </radialGradient>
+                        <mask id="dot-mask">
+                            <rect width={width} height={height} fill="black" />
+                            {dots.map((dot, idx) => (
+                                <circle key={idx} cx={dot.x} cy={dot.y} r="1.25" fill="white" />
+                            ))}
+                        </mask>
+                    </defs>
+
+                    <g opacity="0.08">
+                        {dots.map((dot, idx) => (
+                            <circle key={idx} cx={dot.x} cy={dot.y} r="1.25" fill="#ffffff" />
+                        ))}
+                    </g>
+
+                    <g mask="url(#dot-mask)">
+                        <rect width={width} height={height} fill="url(#spot1)" />
+                        <rect width={width} height={height} fill="url(#spot2)" />
+                    </g>
+                </svg>
             </div>
         </div>
     );
