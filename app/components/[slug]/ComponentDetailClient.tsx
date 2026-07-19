@@ -136,11 +136,12 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                         )}
 
                         {/* Installation */}
-                        <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
-                            <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-6">Installation</h2>
-                            
-                            <div className="relative border-l border-zinc-200 dark:border-zinc-800/80 ml-3 space-y-6 pb-4 mt-4">
-                                {component.installation.steps.map((step, i) => {
+                        {component.installation && (
+                            <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
+                                <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-6">Installation</h2>
+                                
+                                <div className="relative border-l border-zinc-200 dark:border-zinc-800/80 ml-3 space-y-6 pb-4 mt-4">
+                                    {component.installation.steps?.map((step, i) => {
                                     const isCommand = step.startsWith('npm') || step.startsWith('yarn') || step.startsWith('bun') || step.startsWith('expo') || step.startsWith('cd') || step.startsWith('npx');
                                     return (
                                         <div key={i} className="relative pl-8 group">
@@ -191,6 +192,7 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                                 </div>
                             )}
                         </motion.section>
+                        )}
 
                         {/* Source Code */}
                         <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}>
@@ -260,8 +262,9 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                         </motion.section>
 
                         {/* Usage Examples */}
-                        <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
-                            <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-6">Usage Examples</h2>
+                        {component.usage && component.usage.length > 0 && (
+                            <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
+                                <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-6">Usage Examples</h2>
                             <div className="space-y-6">
                                 {component.usage.map((example, i) => (
                                     <div key={i} className="flex flex-col gap-3">
@@ -298,6 +301,7 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                                 ))}
                             </div>
                         </motion.section>
+                        )}
 
                         {/* Props Documentation */}
                         <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }}>

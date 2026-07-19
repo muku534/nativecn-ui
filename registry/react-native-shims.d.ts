@@ -8,6 +8,7 @@ declare module 'react-native' {
     export const TouchableOpacity: any;
     export const TouchableHighlight: any;
     export const TouchableWithoutFeedback: any;
+    export const Pressable: any;
     export const ScrollView: any;
     export const FlatList: any;
     export const SectionList: any;

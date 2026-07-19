@@ -505,9 +505,100 @@ const MinimalistPlaceholder = ({ title }: { title: string }) => {
     );
 }
 
+const LiquidActionTabBarThumbnail = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setIsOpen((prev) => !prev);
+        }, 3200);
+        return () => clearInterval(timer);
+    }, []);
+
+    const actions = [
+        { name: 'Trim', icon: '✂️' },
+        { name: 'Crop', icon: '⧉' },
+        { name: 'Enhance', icon: '✨' },
+        { name: 'Text', icon: 'Aa' },
+        { name: 'Audio', icon: '🎵' },
+        { name: 'Speed', icon: '🐇' },
+        { name: 'Duplicate', icon: '❐' },
+        { name: 'Undo', icon: '↩' },
+        { name: 'Share', icon: '⎘' },
+        { name: 'Save', icon: '🔖' },
+        { name: 'Delete', icon: '🗑' },
+    ];
+
+    return (
+        <div className="w-full h-full flex flex-col items-center justify-end bg-zinc-50 dark:bg-zinc-950 p-4 relative overflow-hidden group/liquid">
+            {/* Bottom Row Alignment */}
+            <div className="w-full flex items-end justify-between gap-2 z-10">
+                {/* Left Side Morphing Container */}
+                <motion.div
+                    initial={false}
+                    animate={{
+                        height: isOpen ? 170 : 44,
+                        borderRadius: isOpen ? 22 : 22,
+                    }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex-1 border border-zinc-200 dark:border-white/10 bg-white dark:bg-zinc-900 shadow-md flex flex-col justify-center overflow-hidden relative"
+                >
+                    {/* Collapsed State: 4 Tab Icons */}
+                    <motion.div
+                        animate={{ opacity: isOpen ? 0 : 1 }}
+                        transition={{ duration: 0.2 }}
+                        className={`absolute inset-0 flex items-center justify-around px-2 ${isOpen ? 'pointer-events-none' : 'pointer-events-auto'}`}
+                    >
+                        <div className="relative flex items-center justify-center">
+                            <div className="absolute w-8 h-7 rounded-full bg-zinc-200/60 dark:bg-zinc-800/60" />
+                            <span className="text-[13px] text-zinc-900 dark:text-white z-10 relative">🏠</span>
+                        </div>
+                        <span className="text-[13px] text-zinc-400 dark:text-zinc-500 z-10">📥</span>
+                        <span className="text-[13px] text-zinc-400 dark:text-zinc-500 z-10">🔔</span>
+                        <span className="text-[13px] text-zinc-400 dark:text-zinc-500 z-10">🥞</span>
+                    </motion.div>
+
+                    {/* Expanded State: 4-Column Action Grid */}
+                    <motion.div
+                        animate={{
+                            opacity: isOpen ? 1 : 0,
+                            scale: isOpen ? 1 : 0.88,
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className={`p-2 grid grid-cols-4 gap-y-1.5 gap-x-1 ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                    >
+                        {actions.map((act) => (
+                            <div key={act.name} className="flex flex-col items-center">
+                                <div className="w-5.5 h-5.5 rounded-md bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[9px] shadow-xs">
+                                    {act.icon}
+                                </div>
+                                <span className="text-[7px] font-medium text-zinc-700 dark:text-zinc-300 mt-0.5 truncate max-w-full">{act.name}</span>
+                            </div>
+                        ))}
+                    </motion.div>
+                </motion.div>
+
+                {/* Right Side FAB Plus/Close Button */}
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="w-11 h-11 shrink-0 rounded-full border border-zinc-200 dark:border-white/10 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-md flex items-center justify-center text-base font-light transition-transform duration-300 active:scale-90"
+                >
+                    <motion.span
+                        animate={{ rotate: isOpen ? 45 : 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        +
+                    </motion.span>
+                </button>
+            </div>
+        </div>
+    );
+};
+
 const getThumbnailComponent = (id: string) => {
     switch (id) {
         case 'animated-tab-bar': return <AnimatedTabBarThumbnail />;
+        case 'liquid-action-tab-bar': return <LiquidActionTabBarThumbnail />;
         case 'switch-toggle': return <SwitchToggleThumbnail />;
         case 'bottom-navigation': return <AnimatedBottomNavThumbnail />;
         case 'floating-speed-dial': return <FloatingSpeedDialThumbnail />;

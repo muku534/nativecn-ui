@@ -1,0 +1,75 @@
+{
+    "id": "liquid-action-tab-bar",
+    "name": "Liquid Action Tab Bar",
+    "category": "Navigation",
+    "description": "Floating liquid glass tab bar with an expanding action menu grid and spring physics",
+    "longDescription": "A premium iOS-style floating tab bar with a separate action button (FAB) that smoothly rotates into a close button while expanding a translucent frosted-glass grid menu.",
+    "gradient": "from-indigo-500 to-purple-500",
+    "emoji": "📱",
+    "snackId": "@mr.mukesh/liquid-action-tab-bar",
+    "dependencies": {
+        "required": [
+            "react-native-reanimated"
+        ],
+        "optional": []
+    },
+    "features": [
+        "Liquid glass translucent containers",
+        "Expanding 3x4 action menu popover grid",
+        "Smooth spring physics & FAB rotation",
+        "Dynamic active tab sliding indicator pill",
+        "Zero-dependency built-in vector icons"
+    ],
+    "props": [
+        {
+            "name": "tabs",
+            "type": "TabItem[]",
+            "required": false,
+            "description": "Array of tab objects with id, label, and iconName"
+        },
+        {
+            "name": "activeTabId",
+            "type": "string",
+            "required": false,
+            "description": "ID of the currently selected tab"
+        },
+        {
+            "name": "onTabChange",
+            "type": "(tabId: string) => void",
+            "required": false,
+            "description": "Callback fired when a tab is pressed"
+        },
+        {
+            "name": "actions",
+            "type": "ActionMenuItem[]",
+            "required": false,
+            "description": "Array of action items for the expanding menu grid"
+        },
+        {
+            "name": "isDarkMode",
+            "type": "boolean",
+            "required": false,
+            "description": "Toggle between light and dark frosted glass theme"
+        },
+        {
+            "name": "accentColor",
+            "type": "string",
+            "required": false,
+            "description": "Custom color for the active indicator pill"
+        }
+    ],
+    "usage": [
+        {
+            "title": "Basic Usage",
+            "description": "Render the floating tab bar above your main content. Make sure to place it absolutely at the bottom.",
+            "code": "import { LiquidActionTabBar } from '@/components/LiquidActionTabBar';\n\nconst actions = [\n  { name: 'Share', icon: '⎘' },\n  { name: 'Save', icon: '🔖' },\n  { name: 'Delete', icon: '🗑' },\n];\n\nexport default function App() {\n  return (\n    <View style={{ flex: 1 }}>\n      <ScrollView>\n         {/* Your App Content */}\n      </ScrollView>\n      <LiquidActionTabBar actions={actions} />\n    </View>\n  );\n}"
+        }
+    ],
+    "installation": {
+        "steps": [
+            "npm install react-native-reanimated",
+            "Copy LiquidActionTabBar.tsx to your components folder",
+            "Import and use"
+        ]
+    }
+}

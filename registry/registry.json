@@ -17,6 +17,13 @@
             "version": "1.0.0"
         },
         {
+            "id": "liquid-action-tab-bar",
+            "path": "components/liquid-action-tab-bar",
+            "category": "Navigation",
+            "difficulty": "Advanced",
+            "version": "1.0.0"
+        },
+        {
             "id": "skeleton-loader",
             "path": "components/skeleton-loader",
             "category": "Loading",
