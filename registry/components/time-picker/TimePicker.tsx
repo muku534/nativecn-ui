@@ -197,10 +197,10 @@ export default function TimePicker({
   useEffect(() => {
     setTimeout(() => {
       if (scrollViewStartRef.current) {
-        scrollViewStartRef.current.scrollTo({ y: initialIndex * ITEM_HEIGHT, animated: false });
+        (scrollViewStartRef.current as any).scrollTo({ y: initialIndex * ITEM_HEIGHT, animated: false });
       }
       if (scrollViewEndRef.current) {
-        scrollViewEndRef.current.scrollTo({ y: (initialIndex + 2) * ITEM_HEIGHT, animated: false });
+        (scrollViewEndRef.current as any).scrollTo({ y: (initialIndex + 2) * ITEM_HEIGHT, animated: false });
       }
     }, 100);
   }, []);
@@ -299,7 +299,7 @@ export default function TimePicker({
         {/* SEGMENTED CONTROL */}
         <View 
           style={[styles.segmentedControl, { backgroundColor: bgSecondary }]}
-          onLayout={(e) => setSegmentWidth(e.nativeEvent.layout.width)}
+          onLayout={(e: any) => setSegmentWidth(e.nativeEvent.layout.width)}
         >
           <Animated.View style={[styles.segmentIndicator, { backgroundColor: bgPrimary }, indicatorStyle]} />
           
