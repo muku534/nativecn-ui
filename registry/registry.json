@@ -105,6 +105,13 @@
             "category": "Loading",
             "difficulty": "Medium",
             "version": "1.0.0"
+        },
+        {
+            "id": "time-picker",
+            "path": "components/time-picker",
+            "category": "Input",
+            "difficulty": "Advanced",
+            "version": "1.0.0"
         }
     ]
 }

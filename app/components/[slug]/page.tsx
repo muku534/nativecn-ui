@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             'React Native UI',
             'nativecn-ui',
             'copy paste React Native',
-            component.category,
-            ...component.features
+            ...(component.category ? [component.category] : []),
+            ...(component.features || [])
         ],
         openGraph: {
             title,

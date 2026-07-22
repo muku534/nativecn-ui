@@ -304,38 +304,40 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                         )}
 
                         {/* Props Documentation */}
-                        <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }}>
-                            <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-6">Props</h2>
-                            <div className="border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden overflow-x-auto bg-transparent">
-                                <table className="w-full min-w-[600px] text-xs md:text-sm">
-                                    <thead className="bg-zinc-50 dark:bg-zinc-900/50 border-b border-zinc-200 dark:border-zinc-800">
-                                        <tr>
-                                            <th className="px-5 py-3.5 text-left font-semibold text-zinc-500 dark:text-zinc-400">Prop</th>
-                                            <th className="px-5 py-3.5 text-left font-semibold text-zinc-500 dark:text-zinc-400">Type</th>
-                                            <th className="px-5 py-3.5 text-left font-semibold text-zinc-500 dark:text-zinc-400">Default</th>
-                                            <th className="px-5 py-3.5 text-left font-semibold text-zinc-500 dark:text-zinc-400">Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/80">
-                                        {component.props.map((prop, i) => (
-                                            <tr key={i} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/10 transition-colors">
-                                                <td className="px-5 py-4">
-                                                    <div className="flex items-center gap-2">
-                                                        <code className="text-[11px] font-mono text-zinc-800 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-200/50 dark:border-zinc-800/50">{prop.name}</code>
-                                                        {prop.required && <span className="text-[9px] uppercase font-bold text-red-500 dark:text-red-400 tracking-wider">Required</span>}
-                                                    </div>
-                                                </td>
-                                                <td className="px-5 py-4"><code className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">{prop.type}</code></td>
-                                                <td className="px-5 py-4">
-                                                    {prop.default ? <code className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">{prop.default}</code> : <span className="text-zinc-400/50 dark:text-zinc-500/50">-</span>}
-                                                </td>
-                                                <td className="px-5 py-4 text-zinc-500 dark:text-zinc-400 leading-relaxed">{prop.description}</td>
+                        {component.props && component.props.length > 0 && (
+                            <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }}>
+                                <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-6">Props</h2>
+                                <div className="border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden overflow-x-auto bg-transparent">
+                                    <table className="w-full min-w-[600px] text-xs md:text-sm">
+                                        <thead className="bg-zinc-50 dark:bg-zinc-900/50 border-b border-zinc-200 dark:border-zinc-800">
+                                            <tr>
+                                                <th className="px-5 py-3.5 text-left font-semibold text-zinc-500 dark:text-zinc-400">Prop</th>
+                                                <th className="px-5 py-3.5 text-left font-semibold text-zinc-500 dark:text-zinc-400">Type</th>
+                                                <th className="px-5 py-3.5 text-left font-semibold text-zinc-500 dark:text-zinc-400">Default</th>
+                                                <th className="px-5 py-3.5 text-left font-semibold text-zinc-500 dark:text-zinc-400">Description</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </motion.section>
+                                        </thead>
+                                        <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/80">
+                                            {component.props.map((prop, i) => (
+                                                <tr key={i} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/10 transition-colors">
+                                                    <td className="px-5 py-4">
+                                                        <div className="flex items-center gap-2">
+                                                            <code className="text-[11px] font-mono text-zinc-800 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-200/50 dark:border-zinc-800/50">{prop.name}</code>
+                                                            {prop.required && <span className="text-[9px] uppercase font-bold text-red-500 dark:text-red-400 tracking-wider">Required</span>}
+                                                        </div>
+                                                    </td>
+                                                    <td className="px-5 py-4"><code className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">{prop.type}</code></td>
+                                                    <td className="px-5 py-4">
+                                                        {prop.default ? <code className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">{prop.default}</code> : <span className="text-zinc-400/50 dark:text-zinc-500/50">-</span>}
+                                                    </td>
+                                                    <td className="px-5 py-4 text-zinc-500 dark:text-zinc-400 leading-relaxed">{prop.description}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </motion.section>
+                        )}
                     </div>
 
                     {/* Sidebar Panels */}
@@ -343,20 +345,22 @@ export default function ComponentDetailClient({ component, relatedComponents }: 
                         <motion.div initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="sticky top-24 space-y-6">
 
                             {/* Features */}
-                            <div className="bg-zinc-50/30 dark:bg-zinc-900/10 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
-                                <h3 className="font-semibold text-zinc-800 dark:text-zinc-200 mb-4 text-[15px]">Features</h3>
-                                <ul className="space-y-3">
-                                    {component.features.map((feature, i) => (
-                                        <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm text-zinc-500 dark:text-zinc-400">
-                                            <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                                            <span className="leading-relaxed">{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {component.features && component.features.length > 0 && (
+                                <div className="bg-zinc-50/30 dark:bg-zinc-900/10 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
+                                    <h3 className="font-semibold text-zinc-800 dark:text-zinc-200 mb-4 text-[15px]">Features</h3>
+                                    <ul className="space-y-3">
+                                        {component.features.map((feature, i) => (
+                                            <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm text-zinc-500 dark:text-zinc-400">
+                                                <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                                <span className="leading-relaxed">{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
 
                             {/* Native Capabilities */}
-                            {component.dependencies.optional.includes('native-haptics') && (
+                            {component.dependencies?.optional?.includes('native-haptics') && (
                                 <div className="bg-gradient-to-br from-zinc-100/50 to-zinc-50/20 dark:from-zinc-900/30 dark:to-zinc-900/10 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 relative overflow-hidden">
                                     <h3 className="font-semibold text-zinc-800 dark:text-zinc-200 mb-2 flex items-center gap-2 text-[15px]">
                                         <Zap className="w-4 h-4 text-zinc-600 dark:text-zinc-400 animate-pulse" /> Native Capabilities

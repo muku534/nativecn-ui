@@ -1,0 +1,74 @@
+{
+  "id": "time-picker",
+  "name": "Time Picker",
+  "category": "Forms",
+  "description": "A highly customized and smooth Time Picker component with a scroll-driven animated analog clock face.",
+  "longDescription": "A completely custom-built time picker that features both Single Time and Time Range selection modes. It includes a scroll-driven animated analog clock face whose hands perfectly sync with the scroll position of the digital time lists using React Native Reanimated spring physics.",
+  "gradient": "from-blue-500 to-indigo-500",
+  "emoji": "🕰️",
+  "snackId": "@mr.mukesh/time-picker",
+  "dependencies": {
+    "required": [
+      "react-native-reanimated"
+    ],
+    "optional": []
+  },
+  "features": [
+    "Custom built, scroll-driven interactive analog clock",
+    "Supports both Single Time and Time Range selection modes",
+    "Fluid spring animations using React Native Reanimated",
+    "Fully customizable colors and theme support",
+    "Zero-dependency built-in SVG-style icons"
+  ],
+  "props": [
+    {
+      "name": "theme",
+      "type": "'light' | 'dark'",
+      "required": false,
+      "default": "'light'",
+      "description": "The color theme for the time picker."
+    },
+    {
+      "name": "initialIndex",
+      "type": "number",
+      "required": false,
+      "default": "28",
+      "description": "The starting index for the time list (0-47)."
+    },
+    {
+      "name": "onTimeChange",
+      "type": "(time: string) => void",
+      "required": false,
+      "description": "Callback fired when a single time is selected."
+    },
+    {
+      "name": "onRangeChange",
+      "type": "(start: string, end: string) => void",
+      "required": false,
+      "description": "Callback fired when a time range is selected."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Optional custom styles for the main container."
+    }
+  ],
+  "usage": [
+    {
+      "title": "Basic Usage",
+      "description": "Render the time picker in your view. It automatically handles its own expanded/collapsed states.",
+      "code": "import TimePicker from '@/components/TimePicker';\n\nexport default function App() {\n  return (\n    <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>\n      <TimePicker \n        theme=\"dark\"\n        onTimeChange={(time) => console.log('Time:', time)}\n        onRangeChange={(start, end) => console.log('Range:', start, end)}\n      />\n    </View>\n  );\n}"
+    }
+  ],
+  "installation": {
+    "steps": [
+      "npm install react-native-reanimated",
+      "Copy TimePicker.tsx to your components folder",
+      "Import and use"
+    ]
+  },
+  "files": [
+    "TimePicker.tsx"
+  ]
+}

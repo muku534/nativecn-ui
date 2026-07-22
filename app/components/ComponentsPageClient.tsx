@@ -595,10 +595,89 @@ const LiquidActionTabBarThumbnail = () => {
     );
 };
 
+const TimePickerThumbnail = () => {
+    return (
+        <div className="w-full h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
+            <div className="w-[240px] h-[190px] bg-white dark:bg-[#1C1C1E] rounded-[24px] p-4 flex flex-col shadow-sm border border-zinc-200/60 dark:border-white/10">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-1.5">
+                        <div className="w-4 h-4 rounded-full border-[1.5px] border-zinc-400 dark:border-zinc-500 relative flex items-center justify-center">
+                            <div className="w-[1.5px] h-[6px] bg-zinc-400 dark:bg-zinc-500 absolute top-[2px] rounded-full" />
+                            <div className="w-[6px] h-[1.5px] bg-zinc-400 dark:bg-zinc-500 absolute top-[6px] left-[6px] rounded-full" />
+                        </div>
+                        <span className="text-[11px] font-medium text-zinc-500">Time</span>
+                    </div>
+                    <span className="text-[11px] font-semibold text-zinc-900 dark:text-white">7:00 pm - 8:00 pm</span>
+                </div>
+                
+                {/* Segmented Control */}
+                <div className="w-full h-7 bg-zinc-100 dark:bg-[#2C2C2E] rounded-full mb-4 p-0.5 flex">
+                    <div className="flex-1 flex items-center justify-center">
+                        <span className="text-[10px] font-medium text-zinc-500">Single time</span>
+                    </div>
+                    <div className="flex-1 bg-white dark:bg-zinc-800 rounded-full shadow-sm flex items-center justify-center gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-blue-500 flex items-center justify-center">
+                            <svg width="6" height="4" viewBox="0 0 6 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 2L2.5 3.5L5 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        </div>
+                        <span className="text-[10px] font-medium text-zinc-900 dark:text-white">Time range</span>
+                    </div>
+                </div>
+
+                {/* Main Content */}
+                <div className="flex flex-1 items-center justify-between px-1">
+                    {/* Clock face (Left) */}
+                    <div className="w-[64px] h-[64px] rounded-full bg-zinc-50 dark:bg-[#2C2C2E] relative flex items-center justify-center shadow-inner border border-zinc-100 dark:border-zinc-700/50">
+                        {/* Clock hands */}
+                        <div className="w-[1.5px] h-[20px] bg-zinc-900 dark:bg-white absolute top-3 left-[31px] rounded-full origin-bottom rotate-[210deg]" />
+                        <div className="w-[1.5px] h-[24px] bg-blue-500 absolute top-2 left-[31.5px] rounded-full origin-bottom" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 absolute top-[5px]" />
+                        <div className="w-1 h-1 rounded-full bg-white dark:bg-zinc-900 absolute z-10" />
+                        
+                        {/* Tick marks */}
+                        <div className="absolute top-1.5 w-[1.5px] h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-600" />
+                        <div className="absolute bottom-1.5 w-[1.5px] h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-600" />
+                        <div className="absolute left-1.5 w-1.5 h-[1.5px] rounded-full bg-zinc-300 dark:bg-zinc-600" />
+                        <div className="absolute right-1.5 w-1.5 h-[1.5px] rounded-full bg-zinc-300 dark:bg-zinc-600" />
+                    </div>
+
+                    {/* Time Lists (Right) */}
+                    <div className="relative w-[120px] h-[75px] flex items-center">
+                        {/* Highlight Box */}
+                        <div className="absolute left-0 right-0 top-[22.5px] h-[30px] bg-zinc-100 dark:bg-white/10 rounded-lg" />
+                        
+                        {/* Dash Indicator */}
+                        <div className="absolute left-0 right-0 top-[22.5px] h-[30px] flex items-center justify-center">
+                            <span className="text-[10px] text-zinc-400 font-medium">-</span>
+                        </div>
+
+                        {/* Start List */}
+                        <div className="absolute left-0 w-[60px] h-full flex flex-col items-center justify-center z-10">
+                            <span className="text-[9px] text-zinc-300 dark:text-zinc-600 mb-1.5">6:30 pm</span>
+                            <span className="text-[11px] font-semibold text-zinc-900 dark:text-white">7:00 pm</span>
+                            <span className="text-[9px] text-zinc-300 dark:text-zinc-600 mt-1.5">7:30 pm</span>
+                        </div>
+
+                        {/* End List */}
+                        <div className="absolute right-0 w-[60px] h-full flex flex-col items-center justify-center z-10">
+                            <span className="text-[9px] text-zinc-300 dark:text-zinc-600 mb-1.5">7:30 pm</span>
+                            <span className="text-[11px] font-semibold text-zinc-900 dark:text-white">8:00 pm</span>
+                            <span className="text-[9px] text-zinc-300 dark:text-zinc-600 mt-1.5">8:30 pm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const getThumbnailComponent = (id: string) => {
     switch (id) {
         case 'animated-tab-bar': return <AnimatedTabBarThumbnail />;
         case 'liquid-action-tab-bar': return <LiquidActionTabBarThumbnail />;
+        case 'time-picker': return <TimePickerThumbnail />;
         case 'switch-toggle': return <SwitchToggleThumbnail />;
         case 'bottom-navigation': return <AnimatedBottomNavThumbnail />;
         case 'floating-speed-dial': return <FloatingSpeedDialThumbnail />;
