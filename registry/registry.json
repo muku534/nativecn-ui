@@ -140,6 +140,13 @@
             "category": "Forms",
             "difficulty": "Medium",
             "version": "1.0.0"
+        },
+        {
+            "id": "photo-album",
+            "path": "components/photo-album",
+            "category": "Display",
+            "difficulty": "Advanced",
+            "version": "1.0.0"
         }
     ]
 }

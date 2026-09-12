@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import type { ComponentMetadata } from '@/lib/types';
@@ -1064,6 +1064,72 @@ const DynamicUploadThumbnail = () => {
     );
 };
 
+const PhotoAlbumThumbnail = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const mouseX = useMotionValue(100); // 100 = right side (closed)
+    const springConfig = { damping: 25, stiffness: 200 };
+    const springX = useSpring(mouseX, springConfig);
+    // As mouse moves from right (100) to left (0), rotate from 0 to -170 degrees
+    const rotateY = useTransform(springX, [100, 0], [0, -170]);
+
+    const handlePointerMove = (e: React.PointerEvent) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const percent = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+        mouseX.set(percent);
+    };
+
+    const handlePointerLeave = () => {
+        mouseX.set(100); // return to closed state
+    };
+
+    return (
+        <div 
+            ref={containerRef}
+            className="w-full h-full flex items-center justify-center bg-stone-50 dark:bg-stone-950 cursor-ew-resize"
+            style={{ perspective: 1000 }}
+            onPointerLeave={handlePointerLeave}
+            onPointerMove={handlePointerMove}
+        >
+            <div className="relative w-20 h-28 shadow-2xl" style={{ transformStyle: 'preserve-3d' }}>
+                {/* Underneath Page (Right side of open spread) */}
+                <div className="absolute inset-0 bg-white rounded-r-sm overflow-hidden border border-zinc-200 dark:border-zinc-800">
+                    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover opacity-90" alt="underneath page" />
+                </div>
+                
+                {/* Rotating Page Container */}
+                <motion.div 
+                    style={{ rotateY, transformStyle: 'preserve-3d' }}
+                    className="absolute inset-0 origin-left z-10"
+                >
+                    {/* Front Face (Cover) */}
+                    <div 
+                        className="absolute inset-0 bg-[#CFC7BB] rounded-r-sm flex flex-col items-center justify-start p-1.5 shadow-[-2px_0_5px_rgba(0,0,0,0.1)]"
+                        style={{ backfaceVisibility: 'hidden' }}
+                    >
+                        <div className="w-full h-1/2 bg-white p-0.5 shadow-sm mb-1.5">
+                            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="cover image" />
+                        </div>
+                        <div className="w-4 h-px bg-[#3A332B]/20 mb-1" />
+                        <span className="text-[5px] tracking-widest text-[#3A332B] font-medium text-center leading-[1.2]">HOWARD<br/>BEACH</span>
+                    </div>
+
+                    {/* Back Face (Left side of open spread) */}
+                    <div 
+                        className="absolute inset-0 bg-white rounded-r-sm overflow-hidden border border-zinc-200 dark:border-zinc-800"
+                        style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                    >
+                        <img src="https://images.unsplash.com/photo-1682687220063-4742bd7fd538?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover opacity-90" alt="back of cover" />
+                    </div>
+                </motion.div>
+
+                {/* Left side book spine hinge */}
+                <div className="absolute top-0 bottom-0 left-0 w-1 bg-black/10 z-20 pointer-events-none rounded-l-sm" />
+            </div>
+        </div>
+    );
+};
+
 const getThumbnailComponent = (id: string) => {
     switch (id) {
         case 'animated-tab-bar': return <AnimatedTabBarThumbnail />;
@@ -1086,6 +1152,7 @@ const getThumbnailComponent = (id: string) => {
         case 'image-carousel': return <ImageCarouselThumbnail />;
         case 'image-skeleton': return <ImageSkeletonThumbnail />;
         case 'dynamic-upload': return <DynamicUploadThumbnail />;
+        case 'photo-album': return <PhotoAlbumThumbnail />;
         default: return <MinimalistPlaceholder title={id} />;
     }
 }

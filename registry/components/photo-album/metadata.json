@@ -1,0 +1,49 @@
+{
+  "id": "photo-album",
+  "name": "3D Photo Album",
+  "category": "Display",
+  "description": "A highly realistic, interactive 3D photo album with fluid page-turning physics using React Native Reanimated.",
+  "longDescription": "A completely custom-built 3D photo album that simulates a physical hardcover book. It features dynamic spine shading, 3D page bending physics, perfectly mapped double-sided pages, and depth-based shadowing, all powered by React Native Reanimated and Gesture Handler.",
+  "gradient": "from-stone-500 to-stone-700",
+  "emoji": "📔",
+  "snackId": "@mr.mukesh/3d-photo-album",
+  "dependencies": {
+    "required": [
+      "react-native-reanimated",
+      "react-native-gesture-handler"
+    ],
+    "optional": []
+  },
+  "features": [
+    "Interactive pan gesture to turn pages smoothly",
+    "Realistic 3D bending physics using matrix transforms",
+    "Dynamic drop shadows and spine creases",
+    "Double-sided pages with synchronized opacity toggles",
+    "Zero external 3D engine dependencies (built on Reanimated)"
+  ],
+  "props": [
+    {
+      "name": "pages",
+      "type": "React.ReactNode[]",
+      "required": true,
+      "description": "An array of React nodes to render as pages. The first node is the front cover, the last node is the back cover."
+    }
+  ],
+  "usage": [
+    {
+      "title": "Basic Usage",
+      "description": "Pass an array of components (e.g., Images or custom Views) to the PhotoAlbum. It automatically handles the 3D rendering and gesture interactions.",
+      "code": "import PhotoAlbum from '@/components/PhotoAlbum';\nimport { View, Text, Image } from 'react-native';\n\nconst pages = [\n  <View key=\"cover\" style={{ flex: 1, backgroundColor: '#CFC7BB', padding: 20 }}>\n    <Text>My Album Cover</Text>\n  </View>,\n  <Image key=\"1\" source={{ uri: 'https://picsum.photos/800' }} style={{ flex: 1 }} />,\n  <Image key=\"2\" source={{ uri: 'https://picsum.photos/801' }} style={{ flex: 1 }} />,\n  <View key=\"back\" style={{ flex: 1, backgroundColor: '#CFC7BB' }} />\n];\n\nexport default function App() {\n  return (\n    <View style={{ flex: 1 }}>\n      <PhotoAlbum pages={pages} />\n    </View>\n  );\n}"
+    }
+  ],
+  "installation": {
+    "steps": [
+      "npm install react-native-reanimated react-native-gesture-handler",
+      "Copy PhotoAlbum.tsx to your components folder",
+      "Import and use"
+    ]
+  },
+  "files": [
+    "PhotoAlbum.tsx"
+  ]
+}
