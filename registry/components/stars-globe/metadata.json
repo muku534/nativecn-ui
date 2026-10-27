@@ -1,0 +1,111 @@
+{
+  "id": "stars-globe",
+  "name": "Animated Stars Globe",
+  "category": "Display",
+  "difficulty": "Advanced",
+  "description": "An interactive 3D celestial sphere and 2D planar constellation map built entirely from animated stars with smooth morphing and country telemetry.",
+  "longDescription": "A unified, ultra-premium celestial component that seamlessly morphs between an interactive 3D spherical globe and a 2D equirectangular planar constellation map. Features interactive pan and drag rotation, country telemetry highlights with pulsing radar beacons, smooth auto-rotation with gesture-resume, curated star color palettes, atmospheric nebula glow, and zero heavy 3D engine overhead using native SVG paths.",
+  "gradient": "from-cyan-500 to-blue-700",
+  "emoji": "🌐",
+  "snackId": "@mr.mukesh/animated-stars-globe",
+  "dependencies": {
+    "required": [
+      "react-native-svg"
+    ],
+    "optional": []
+  },
+  "features": [
+    "Seamless bidirectional morphing between 3D spherical globe and 2D planar map",
+    "60fps continuous auto-rotation with seamless gesture drag and resume",
+    "Country focus telemetry with animated fly-to camera and pulsing radar beacon",
+    "Six curated celestial color themes and customizable atmospheric glow",
+    "Zero heavy 3D engine dependencies — pure high-performance native SVG vector rendering",
+    "Full responsive scaling support via size prop"
+  ],
+  "props": [
+    {
+      "name": "initialMode",
+      "type": "'globe' | 'flat'",
+      "required": false,
+      "default": "'globe'",
+      "description": "Initial display mode (3D globe or 2D flat planar map)."
+    },
+    {
+      "name": "mode",
+      "type": "'globe' | 'flat'",
+      "required": false,
+      "description": "Controlled display mode."
+    },
+    {
+      "name": "onModeChange",
+      "type": "(mode: 'globe' | 'flat') => void",
+      "required": false,
+      "description": "Callback triggered when the mode switches between globe and flat."
+    },
+    {
+      "name": "allowModeToggle",
+      "type": "boolean",
+      "required": false,
+      "default": "true",
+      "description": "Whether to show the segmented mode toggle buttons in the control dock."
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "required": false,
+      "default": "380",
+      "description": "Width and diameter bounding size for the globe and map canvas."
+    },
+    {
+      "name": "selectedCountryCode",
+      "type": "string | null",
+      "required": false,
+      "description": "ISO country code of the highlighted country (e.g. 'IN', 'US', 'GB')."
+    },
+    {
+      "name": "onSelectCountry",
+      "type": "(country: CountryInfo | null) => void",
+      "required": false,
+      "description": "Callback invoked when a country is selected."
+    },
+    {
+      "name": "autoRotate",
+      "type": "boolean",
+      "required": false,
+      "default": "true",
+      "description": "Enable or disable automatic globe rotation."
+    },
+    {
+      "name": "autoRotateSpeed",
+      "type": "number",
+      "required": false,
+      "default": "0.35",
+      "description": "Rotation speed multiplier."
+    },
+    {
+      "name": "showCustomizationControls",
+      "type": "boolean",
+      "required": false,
+      "default": "true",
+      "description": "Show or hide the dock with color swatches, mode toggle, and play/pause controls."
+    }
+  ],
+  "usage": [
+    {
+      "title": "Basic Usage",
+      "description": "Render an interactive 3D stars globe that morphs into a 2D flat map with live country radar highlights.",
+      "code": "import React, { useState } from 'react';\nimport { View, Dimensions } from 'react-native';\nimport StarsGlobe from '@/components/StarsGlobe';\n\nconst { width } = Dimensions.get('window');\n\nexport default function App() {\n  const [mode, setMode] = useState<'globe' | 'flat'>('globe');\n  const [country, setCountry] = useState<string | null>('IN');\n\n  return (\n    <View style={{ flex: 1, backgroundColor: '#030712', justifyContent: 'center', alignItems: 'center' }}>\n      <StarsGlobe\n        mode={mode}\n        onModeChange={setMode}\n        size={Math.min(width - 20, 390)}\n        selectedCountryCode={country}\n        onSelectCountry={(c) => setCountry(c?.code ?? null)}\n      />\n    </View>\n  );\n}"
+    }
+  ],
+  "installation": {
+    "steps": [
+      "npm install react-native-svg",
+      "Copy StarsGlobe.tsx and worldData.ts to your components folder",
+      "Import StarsGlobe and enjoy the celestial animations"
+    ]
+  },
+  "files": [
+    "StarsGlobe.tsx",
+    "worldData.ts"
+  ]
+}

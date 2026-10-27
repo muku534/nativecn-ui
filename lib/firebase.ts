@@ -11,18 +11,26 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
+const hasConfig = Boolean(firebaseConfig.projectId && firebaseConfig.apiKey);
+
 // Initialize Firebase (client-side only - for Analytics)
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = hasConfig
+    ? (!getApps().length ? initializeApp(firebaseConfig) : getApp())
+    : null;
 
 // Initialize Analytics (only on client side and if supported)
 let analytics: any = null;
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && app && hasConfig) {
     isSupported().then((supported) => {
         if (supported) {
-            analytics = getAnalytics(app);
+            try {
+                analytics = getAnalytics(app);
+            } catch (e) {
+                // Silently fallback in development if config is partial
+            }
         }
-    });
+    }).catch(() => {});
 }
 
 export { app, analytics };

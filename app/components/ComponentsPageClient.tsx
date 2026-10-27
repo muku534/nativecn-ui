@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import type { ComponentMetadata } from '@/lib/types';
+import { ALL_GLOBE_DOTS } from '@/registry/components/stars-globe/worldData';
 import { CreditCard, Shield, Smartphone, Home, Search, Bell, User, Plus, FileText, Users, Calendar, Type, Image as ImageIcon, Sparkles, Layers } from 'lucide-react';
 
 const springTransition = {
@@ -1130,8 +1131,340 @@ const PhotoAlbumThumbnail = () => {
     );
 };
 
+const TILT_LAT = 18;
+const COS_LAT_TILT = Math.cos((TILT_LAT * Math.PI) / 180);
+const SIN_LAT_TILT = Math.sin((TILT_LAT * Math.PI) / 180);
+
+function circlePath(cx: number, cy: number, r: number): string {
+    const rx = Math.round(cx * 10) / 10;
+    const ry = Math.round(cy * 10) / 10;
+    const rr = Math.round(r * 10) / 10;
+    return `M${rx - rr} ${ry}a${rr} ${rr} 0 1 0 ${2 * rr} 0a${rr} ${rr} 0 1 0 ${-2 * rr} 0`;
+}
+
+const StarsGlobeThumbnail = () => {
+    const [mounted, setMounted] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [autoMode, setAutoMode] = useState<'globe' | 'flat'>('globe');
+    const [morphProgress, setMorphProgress] = useState(1);
+    const [rotationLng, setRotationLng] = useState(30);
+    const [pulse, setPulse] = useState(0);
+
+    const animRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Seamless auto-cycle between 3D Globe (6.5s) and 2D Flat Map (3.5s) if user is not hovering
+    useEffect(() => {
+        if (!mounted) return;
+        const interval = setInterval(() => {
+            if (!isHovered) {
+                setAutoMode((prev) => (prev === 'globe' ? 'flat' : 'globe'));
+            }
+        }, 6500);
+        return () => clearInterval(interval);
+    }, [mounted, isHovered]);
+
+    // Active mode: Hover explicitly shows the 2D flat map; otherwise follow autoMode
+    const activeTarget = isHovered ? 0 : autoMode === 'globe' ? 1 : 0;
+
+    // Morph animation between globe (1) & flat map (0)
+    useEffect(() => {
+        if (!mounted) return;
+        let startTime: number | null = null;
+        const startVal = morphProgress;
+        const duration = 650;
+
+        const animate = (time: number) => {
+            if (!startTime) startTime = time;
+            const elapsed = time - startTime;
+            const p = Math.min(1, elapsed / duration);
+            const eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+            const current = startVal + (activeTarget - startVal) * eased;
+            setMorphProgress(current);
+
+            if (p < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
+        const id = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(id);
+    }, [activeTarget, mounted]);
+
+    // Continuous 60fps auto-rotation & radar beacon pulse
+    useEffect(() => {
+        if (!mounted) return;
+        let lastTime = Date.now();
+        const loop = () => {
+            const now = Date.now();
+            const dt = Math.min(0.1, (now - lastTime) / 1000);
+            lastTime = now;
+
+            setRotationLng((prev) => (prev + 20 * dt) % 360);
+            setPulse((prev) => (prev + dt * 1.4) % 1);
+            animRef.current = requestAnimationFrame(loop);
+        };
+        animRef.current = requestAnimationFrame(loop);
+        return () => {
+            if (animRef.current) cancelAnimationFrame(animRef.current);
+        };
+    }, [mounted]);
+
+    // Center & Projection sizing
+    const cx = 160;
+    const cy = 112;
+    const radius = 78;
+    const cardW = 268;
+    const cardH = 152;
+    const cardX = cx - cardW / 2;
+    const cardY = cy - cardH / 2;
+
+    const padX = 14;
+    const padY = 12;
+    const flatW = cardW - padX * 2;
+    const flatH = cardH - padY * 2;
+    const flatLeft = cardX + padX;
+    const flatTop = cardY + padY;
+
+    const radLng = ((mounted ? rotationLng : 30) * Math.PI) / 180;
+    const m = mounted ? morphProgress : 1;
+
+    let frontLandDots = '';
+    let frontOceanDots = '';
+    let backDotsPath = '';
+    let highlightDotsPath = '';
+
+    for (let i = 0; i < ALL_GLOBE_DOTS.length; i++) {
+        const dot = ALL_GLOBE_DOTS[i];
+
+        // 1. Globe 3D Coordinates
+        const phi = (dot.lat * Math.PI) / 180;
+        const theta = (dot.lng * Math.PI) / 180 + radLng;
+
+        const x0 = Math.cos(phi) * Math.sin(theta);
+        const y0 = -Math.sin(phi);
+        const z0 = Math.cos(phi) * Math.cos(theta);
+
+        const targetX = x0;
+        const targetY = y0 * COS_LAT_TILT - z0 * SIN_LAT_TILT;
+        const targetZ = y0 * SIN_LAT_TILT + z0 * COS_LAT_TILT;
+
+        const globeX = cx + targetX * radius;
+        const globeY = cy + targetY * radius;
+
+        // 2. Flat 2D Map Coordinates (properly normalized within card boundaries)
+        const normLng = (dot.lng + 180) / 360;
+        const normLat = Math.max(0, Math.min(1, (84 - dot.lat) / 146));
+        const flatX = flatLeft + normLng * flatW;
+        const flatY = flatTop + normLat * flatH;
+
+        // 3. Morphing Interpolation
+        const px = flatX + (globeX - flatX) * m;
+        const py = flatY + (globeY - flatY) * m;
+
+        const isSelected = dot.code === 'IN' && dot.isLand;
+        const isFront = m < 0.25 || targetZ > -0.15;
+        const depthScale = (1 - m) * 1.05 + m * (0.85 + Math.max(-0.2, targetZ) * 0.3);
+
+        if (isFront) {
+            if (isSelected) {
+                highlightDotsPath += circlePath(px, py, 2.3 * depthScale);
+            } else if (dot.isLand) {
+                frontLandDots += circlePath(px, py, 1.45 * depthScale);
+            } else {
+                frontOceanDots += circlePath(px, py, 1.0 * depthScale);
+            }
+        } else if (m > 0.35) {
+            const backR = dot.isLand ? 0.8 : 0.6;
+            backDotsPath += circlePath(px, py, backR);
+        }
+    }
+
+    // India Centroid Projection for Radar Beacon
+    const inLat = 22.5;
+    const inLng = 79.5;
+    const inPhi = (inLat * Math.PI) / 180;
+    const inTheta = (inLng * Math.PI) / 180 + radLng;
+    const inX0 = Math.cos(inPhi) * Math.sin(inTheta);
+    const inY0 = -Math.sin(inPhi);
+    const inZ0 = Math.cos(inPhi) * Math.cos(inTheta);
+
+    const inTargetX = inX0;
+    const inTargetY = inY0 * COS_LAT_TILT - inZ0 * SIN_LAT_TILT;
+    const inTargetZ = inY0 * SIN_LAT_TILT + inZ0 * COS_LAT_TILT;
+
+    const inGlobeX = cx + inTargetX * radius;
+    const inGlobeY = cy + inTargetY * radius;
+
+    const inFlatX = flatLeft + ((inLng + 180) / 360) * flatW;
+    const inFlatNormLat = Math.max(0, Math.min(1, (84 - inLat) / 146));
+    const inFlatY = flatTop + inFlatNormLat * flatH;
+
+    const beaconX = inFlatX + (inGlobeX - inFlatX) * m;
+    const beaconY = inFlatY + (inGlobeY - inFlatY) * m;
+    const isBeaconVisible = m < 0.25 || inTargetZ > 0.0;
+
+    return (
+        <div
+            className="w-full h-full bg-[#030712] relative overflow-hidden select-none flex items-center justify-center cursor-pointer"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            <svg
+                viewBox="0 0 320 224"
+                className="w-full h-full overflow-visible"
+            >
+                <defs>
+                    {/* Outer Cosmic Nebula Corona Glow */}
+                    <radialGradient id="thumbOuterNebulaAura" cx="50%" cy="50%" r="50%">
+                        <stop offset="52%" stopColor="#00D4FF" stopOpacity="0.25" />
+                        <stop offset="76%" stopColor="#00D4FF" stopOpacity="0.08" />
+                        <stop offset="100%" stopColor="#00D4FF" stopOpacity="0" />
+                    </radialGradient>
+
+                    {/* 3D Spherical Specular & Void Shadow */}
+                    <radialGradient id="thumbGlobeCoreGlow" cx="34%" cy="28%" r="72%">
+                        <stop offset="0%" stopColor="#0F172A" stopOpacity="0.95" />
+                        <stop offset="62%" stopColor="#0B132B" stopOpacity="0.88" />
+                        <stop offset="100%" stopColor="#020617" stopOpacity="0.98" />
+                    </radialGradient>
+
+                    {/* Atmospheric Rim Lighting Glow */}
+                    <radialGradient id="thumbAtmosphereGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="76%" stopColor="#00D4FF" stopOpacity="0" />
+                        <stop offset="90%" stopColor="#00D4FF" stopOpacity="0.22" />
+                        <stop offset="98%" stopColor="#00D4FF" stopOpacity="0.65" />
+                        <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.4" />
+                    </radialGradient>
+
+                    {/* Flat card clipping mask for thumbnail */}
+                    <clipPath id="thumbFlatCardClip">
+                        <rect x={cardX} y={cardY} width={cardW} height={cardH} rx={16} />
+                    </clipPath>
+                </defs>
+
+                {/* Flat Map Outer Card Matrix Frame (fades out in globe mode) */}
+                {m < 0.99 && (
+                    <rect
+                        x={cardX}
+                        y={cardY}
+                        width={cardW}
+                        height={cardH}
+                        rx={16}
+                        fill="rgba(15, 23, 42, 0.55)"
+                        stroke="rgba(255, 255, 255, 0.08)"
+                        strokeWidth={1}
+                        opacity={Number((1 - m).toFixed(2))}
+                    />
+                )}
+
+                {/* Layer 0: Cosmic Nebula Corona Bloom */}
+                {m > 0.05 && (
+                    <circle
+                        cx={cx}
+                        cy={cy}
+                        r={radius * 1.25}
+                        fill="url(#thumbOuterNebulaAura)"
+                        opacity={Number(m.toFixed(2))}
+                    />
+                )}
+
+                {/* Layer 1: Core Sphere */}
+                {m > 0.05 && (
+                    <circle
+                        cx={cx}
+                        cy={cy}
+                        r={radius}
+                        fill="url(#thumbGlobeCoreGlow)"
+                        stroke="rgba(56, 189, 248, 0.2)"
+                        strokeWidth={1}
+                        opacity={Number(m.toFixed(2))}
+                    />
+                )}
+
+                {/* Layer 2: Atmosphere Outer Ring Halo */}
+                {m > 0.05 && (
+                    <circle
+                        cx={cx}
+                        cy={cy}
+                        r={radius * 1.05}
+                        fill="url(#thumbAtmosphereGlow)"
+                        opacity={Number(m.toFixed(2))}
+                    />
+                )}
+
+                {/* Dots and Beacon Layers: Strictly bounded in Flat Map mode */}
+                <g clipPath={m < 0.99 ? "url(#thumbFlatCardClip)" : undefined}>
+                    {/* Layer 3: Back-facing Ghost Dots (Holographic depth volume) */}
+                    {backDotsPath && (
+                        <path d={backDotsPath} fill="rgba(71, 85, 105, 0.25)" />
+                    )}
+
+                    {/* Layer 4: Ocean / Celestial Matrix Dots */}
+                    {frontOceanDots && (
+                        <path d={frontOceanDots} fill="rgba(56, 189, 248, 0.22)" />
+                    )}
+
+                    {/* Layer 5: Continent Landmass Star Dots */}
+                    {frontLandDots && (
+                        <path d={frontLandDots} fill="#00D4FF" />
+                    )}
+
+                    {/* Layer 6: Highlighted Country Neon Star Dots (India) */}
+                    {highlightDotsPath && (
+                        <path
+                            d={highlightDotsPath}
+                            fill="#38BDF8"
+                            stroke="rgba(255, 255, 255, 0.9)"
+                            strokeWidth={0.6}
+                        />
+                    )}
+
+                    {/* Layer 7: Pulsing Radar Beacon on India */}
+                    {isBeaconVisible && (
+                        <g>
+                            <circle
+                                cx={Math.round(beaconX * 10) / 10}
+                                cy={Math.round(beaconY * 10) / 10}
+                                r={Math.round((5 + (mounted ? pulse : 0.3) * 18) * 10) / 10}
+                                fill="none"
+                                stroke="#38BDF8"
+                                strokeWidth={1.5}
+                                opacity={Number((1 - (mounted ? pulse : 0.3)).toFixed(2))}
+                            />
+                            <circle
+                                cx={Math.round(beaconX * 10) / 10}
+                                cy={Math.round(beaconY * 10) / 10}
+                                r={Math.round((3 + (((mounted ? pulse : 0.3) + 0.5) % 1) * 16) * 10) / 10}
+                                fill="none"
+                                stroke="#38BDF8"
+                                strokeWidth={1.2}
+                                opacity={Number((1 - (((mounted ? pulse : 0.3) + 0.5) % 1)).toFixed(2))}
+                            />
+                            <circle
+                                cx={Math.round(beaconX * 10) / 10}
+                                cy={Math.round(beaconY * 10) / 10}
+                                r={3.5}
+                                fill="#FFFFFF"
+                                stroke="#38BDF8"
+                                strokeWidth={2}
+                            />
+                        </g>
+                    )}
+                </g>
+            </svg>
+        </div>
+    );
+};
+
+const StarsWorldThumbnail = StarsGlobeThumbnail;
+
 const getThumbnailComponent = (id: string) => {
     switch (id) {
+        case 'stars-globe':
+        case 'stars-world': return <StarsGlobeThumbnail />;
         case 'animated-tab-bar': return <AnimatedTabBarThumbnail />;
         case 'liquid-action-tab-bar': return <LiquidActionTabBarThumbnail />;
         case 'expandable-action-menu': return <ExpandableActionMenuThumbnail />;
