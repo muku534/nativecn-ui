@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import StudioLandingClient from '@/components/studio/StudioLandingClient';
+import InteractiveStudioClient from '@/components/studio/InteractiveStudioClient';
 
 export const metadata: Metadata = {
-    title: 'Form Studio | nativecn-ui',
-    description: 'A premium visual builder for React Native components. Drag, drop, configure, and export production-ready code instantly.',
+    title: 'Component Studio | nativecn-ui',
+    description: 'Experience real device feel for React Native components. Explore, test, feel animations, customize with live inspector, and copy production-ready code.',
 };
 
-export default function StudioLandingPage() {
-    return <StudioLandingClient />;
+export default function StudioPage() {
+    return <InteractiveStudioClient />;
 }
